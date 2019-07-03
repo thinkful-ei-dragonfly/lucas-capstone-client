@@ -31,24 +31,7 @@ export default class App extends React.Component{
   }
 
   componentDidMount() {
-    const requestPosts = fetch(`${config.API_ENDPOINT}/posts`)
-      .then(res => {
-        return res.json()
-      })
-    const requestStyles = fetch(`${config.API_ENDPOINT}/styles`)
-      .then(res => {
-        return res.json()
-      })
-    Promise.all([
-      requestPosts,
-      requestStyles
-    ])
-      .then(res => {
-        this.setState({
-          posts: res[0],
-          styles: res[1]
-        })
-      })
+    
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -101,6 +84,8 @@ export default class App extends React.Component{
     */
     this.forceUpdate()
   }
+
+
 
   renderMainContent() {
     const { posts, styles } = this.state

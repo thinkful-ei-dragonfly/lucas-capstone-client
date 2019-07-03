@@ -7,7 +7,7 @@ export default class AddPost extends React.Component {
   state = {
     post: {},
     selectedFile: null,
-    post_type: 'text'
+    post_type: 'Text'
   }
   constructPost = event => {
     // Validate based on this.state.post_type
@@ -15,7 +15,7 @@ export default class AddPost extends React.Component {
     // (e.g. if post_type === 'text', then "const { text_headline, text_body} = event.target")
 
     switch (this.state.post_type) {
-      case 'text':
+      case 'Text':
 
         break;
       default:
@@ -43,49 +43,63 @@ export default class AddPost extends React.Component {
     // console.log(event.target.value)
     // implement some kind of base64 encoding. save that to the post.img_url
   }
+  successfulSubmission = () => {
+    const { location, history } = this.props
+    const destination = (location.state || {}).from || '/'
+    history.push(destination)
+  }
   handleSubmit = ev => {
-    // Send POST request to api/styles and send just the ID
-    // send the actual post to api/posts
-    // This ensures that the new post ID is sent to both tables
     ev.preventDefault()
     ev.persist()
+    const { post_type, title, text_headline, text_content, caption, image, video, audio} = ev.target
     let newPost = {
-      post_type: this.state.post_type,
-      title: ev.target.title.value
+      type: this.state.post_type,
+      title: title.value
     }
 
     switch (this.state.post_type) {
-      case 'text':
-        newPost.text_headline = ev.target.text_headline.value
-        newPost.text_content = ev.target.text_content.value
+      case 'Text':
+        newPost.text_headline = text_headline.value
+        newPost.text_content = text_content.value
         break;
-      case 'image':
-        newPost.image_url = ev.target.image.value
-        newPost.caption = ev.target.caption.value
+      case 'Image':
+        newPost.image = image.value
+        newPost.caption = caption.value
         break;
-      case 'video':
-        newPost.video_id = ev.target.video.value
-        newPost.caption = ev.target.caption.value
+      case 'Video':
+        newPost.video = video.value
+        newPost.caption = caption.value
         break
       default:
-
     }
     PostApiService.addPost(newPost)
       .then(res => {
-        ev.target.title.value = ''
+        PostApiService.postStyle({
+          post: res.id
+        })
+          .then(res => {
+            console.log(res)
+          })
+
         switch (this.state.post_type) {
-          case 'text':
-          debugger;
-            ev.target.text_headline.value = ''
-            ev.target.text_content.value = ''
+          case 'Text':
+            title.value = ''
+            text_headline.value = ''
+            text_content.value = ''
             break;
-          case 'image':
-          ev.target.image.value = ''
-          ev.target.caption.value = ''
+          case 'Image':
+            title.value = ''
+            image.value = ''
+            caption.value = ''
+            break;
+          case 'Video':
+            title.value = ''
+            video.value = ''
             break;
           default:
-
         }
+        // Need to re-route to home page
+        this.successfulSubmission()
       })
   }
 
@@ -99,7 +113,7 @@ export default class AddPost extends React.Component {
     let fields = ''
 
     switch (this.state.post_type) {
-      case 'image':
+      case 'Image':
         fields = (
           <>
             <label htmlFor='image'>Insert Image Address</label>
@@ -122,7 +136,7 @@ export default class AddPost extends React.Component {
           </>
         )
         break;
-      case 'text':
+      case 'Text':
         fields = (
           <>
             <label htmlFor='text_headline'>Headline</label>
@@ -145,7 +159,7 @@ export default class AddPost extends React.Component {
           </>
         )
         break;
-      case 'video':
+      case 'Video':
         fields = (
           <>
             <label htmlFor='video'>Enter a Vimeo ID below</label>
@@ -195,10 +209,10 @@ export default class AddPost extends React.Component {
           id='post_type'
           onChange={this.updatePostType}
         >
-        <option value='text'>Text</option>
-        <option value='image'>Image</option>
-        <option value='video'>Video</option>
-        <option value='audio'>Audio</option>
+        <option value='Text'>Text</option>
+        <option value='Image'>Image</option>
+        <option value='Video'>Video</option>
+        <option value='Audio'>Audio</option>
         </select>
 
       </div>

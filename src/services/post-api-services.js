@@ -14,24 +14,42 @@ const PostApiService = {
     )
   },
   addPost(post){
-    return fetch(config.API_ENDPOINT, {
+    return fetch(`${config.API_ENDPOINT}/posts`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(post)
+    })
+    .then(res => { // is a promise
+      // (!res.ok)
+      // ? res.json().then(e => Promise.reject(e))
+      // : return res.json()
+      if (!res.ok) {
+        res.json().then(e => Promise.reject(e))
+      }
+      return res.json()
+    })
+  },
+  postStyle(post) {
+    return fetch(`${config.API_ENDPOINT}/styles`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(post)
     })
     .then(res => {
       (!res.ok)
-      ? res.json().then(e => Promise.reject(e))
-      : res.json()
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
     })
-
-
   },
   saveStyle(styles) {
-    return fetch(`${config.SAVE_ENDPOINT}`, {
-      method: 'POST',
+    return fetch(`${config.API_ENDPOINT}/styles`, {
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json',
         'authorization': `basic ${TokenService.getAuthToken()}`

@@ -17,6 +17,11 @@ export default class Header extends React.Component {
     return (
       <div className='Header__logged-in'>
         <Link
+          to='/add-post'>
+          Add New Post
+        </Link>
+        {' '}
+        <Link
           onClick={this.handleLogoutClick}
           to='/'>
           Logout
