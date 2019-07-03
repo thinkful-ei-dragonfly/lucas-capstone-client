@@ -21,6 +21,7 @@ import TokenService from '../../services/token-service'
 export default class App extends React.Component{
   state = {
     posts: [],
+    styles: [],
     hasError: false
   }
 
@@ -30,6 +31,24 @@ export default class App extends React.Component{
   }
 
   componentDidMount() {
+    const requestPosts = fetch(`${config.API_ENDPOINT}/posts`)
+      .then(res => {
+        return res.json()
+      })
+    const requestStyles = fetch(`${config.API_ENDPOINT}/styles`)
+      .then(res => {
+        return res.json()
+      })
+    Promise.all([
+      requestPosts,
+      requestStyles
+    ])
+      .then(res => {
+        this.setState({
+          posts: res[0],
+          styles: res[1]
+        })
+      })
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -84,7 +103,7 @@ export default class App extends React.Component{
   }
 
   renderMainContent() {
-    const { posts } = this.state
+    const { posts, styles } = this.state
     return (
       <>
         <Route
@@ -93,10 +112,11 @@ export default class App extends React.Component{
           render={routeProps => (
             <PostList
               posts={posts}
+              styles={styles}
               />
           )}
           />
-        <Route
+        <PrivateRoute
           exact
           path='/add-post'
           component={AddPost}
@@ -105,7 +125,7 @@ export default class App extends React.Component{
     )
   }
   render() {
-    const contextValue = { posts: this.state.posts }
+    const contextValue = { posts: this.state.posts, styles: this.state.styles }
     return (
       <PostContext.Provider value={contextValue}>
         <Header />
@@ -122,12 +142,9 @@ export default class App extends React.Component{
                 component={RegistrationPage}
               />
               <PrivateRoute
-                path={'/article/:articleId'}
-
+                path={'/post/:post_id'}
               />
-              <Route
-
-              />
+            {this.renderMainContent()}
             </Switch>
           </main>
         </div>

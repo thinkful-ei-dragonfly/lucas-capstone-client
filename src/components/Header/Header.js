@@ -46,7 +46,7 @@ export default class Header extends React.Component {
     return (
       <header className="Header">
         <h1 className="header-h1">
-          <Link to='/'>TEST CHANGED TITLE</Link>
+          <Link to='/'>Colección</Link>
         </h1>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
