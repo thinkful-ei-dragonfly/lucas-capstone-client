@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Post from '../Post/Post'
-import PostContext from '../PostContext/PostContext'
+import PostContext from '../../PostContext/PostContext'
 
 export default class PostList extends React.Component {
   static contextType = PostContext || {}

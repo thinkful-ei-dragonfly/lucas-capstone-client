@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PostContext from '../PostContext/PostContext'
+import PostContext from '../../PostContext/PostContext'
 import $ from 'jquery'
 
 export default class Post extends React.Component {
@@ -18,8 +18,10 @@ export default class Post extends React.Component {
   }
   render () {
     let renderedPost = ''
-    switch (this.props.post.post_type) {
-      case 'text':
+
+    switch (this.props.post.type) {
+
+      case 'Text':
         renderedPost = (
           <div className='text-post-content'>
             <h2 className='text-post-h2'>{this.props.post.title}</h2>
@@ -28,14 +30,14 @@ export default class Post extends React.Component {
           </div>
         )
         break;
-      case 'image':
+      case 'Image':
         renderedPost = (
           <div className='image-post-content'>
-            <img src={this.props.post.image_url} alt={this.props.post.title} />
+            <img src={this.props.post.image} alt={this.props.post.title} />
           </div>
         )
         break;
-      case 'audio':
+      case 'Audio':
         renderedPost = (
           <div className='audio-post-content'>
           <div className="audio-post-controls">
@@ -45,7 +47,7 @@ export default class Post extends React.Component {
           </div>
         )
         break;
-      case 'video':
+      case 'Video':
         renderedPost = (
           <div className='video-post-wrapper'>
             <div className='video-post-content'>
