@@ -1,52 +1,24 @@
 import React from 'react'
-import PostContext from '../../PostContext/PostContext'
 import PostApiService from '../../services/post-api-services'
-import image2base64 from 'image-to-base64'
+import FileBase64 from 'react-file-base64';
+
 
 export default class AddPost extends React.Component {
   state = {
     post: {},
-    selectedFile: null,
+    uploadedFile: null,
     post_type: 'Text'
   }
-  constructPost = event => {
-    // Validate based on this.state.post_type
-    // instantiate the variables from event.target based on the post_type
-    // (e.g. if post_type === 'text', then "const { text_headline, text_body} = event.target")
 
-    switch (this.state.post_type) {
-      case 'Text':
-
-        break;
-      default:
-
-    }
-    let constructedPost
-    this.setState({
-      post: constructedPost
-    })
-  }
-
-  fileSelectedHandler = event => {
-    // let newFile = image2base64(event.target.value)
-    //   .then(response => {
-    //     console.log(response)
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
-
-    this.setState({
-      selectedFile: event.target.value
-    })
-
-    // console.log(event.target.value)
-    // implement some kind of base64 encoding. save that to the post.img_url
-  }
   successfulSubmission = () => {
     const { location, history } = this.props
     const destination = (location.state || {}).from || '/'
     history.push(destination)
+  }
+  generateMessage(string) {
+    return (
+      <p>{string}</p>
+    )
   }
   handleSubmit = ev => {
     ev.preventDefault()
@@ -57,23 +29,32 @@ export default class AddPost extends React.Component {
       title: title.value
     }
 
-    switch (this.state.post_type) {
+    switch (post_type.value) {
       case 'Text':
         newPost.text_headline = text_headline.value
         newPost.text_content = text_content.value
         break;
       case 'Image':
-        newPost.image = image.value
+        newPost.image = this.state.uploadedFile.base64
         newPost.caption = caption.value
         break;
       case 'Video':
         newPost.video = video.value
         newPost.caption = caption.value
         break
+      case 'Audio':
+        newPost.audio = audio.value
+        newPost.caption = caption.value
+        break;
       default:
     }
     PostApiService.addPost(newPost)
       .then(res => {
+        debugger;
+        if (!res.ok) {
+          this.generateMessage(res.error)
+        }
+        this.generateMessage('Your message was successfully created')
         PostApiService.postStyle({
           post: res.id
         })
@@ -89,17 +70,23 @@ export default class AddPost extends React.Component {
             break;
           case 'Image':
             title.value = ''
-            image.value = ''
             caption.value = ''
             break;
           case 'Video':
             title.value = ''
             video.value = ''
             break;
+          case 'Audio':
+            title.value = ''
+            audio.value = ''
+            caption.value = ''
+            break;
           default:
         }
-        // Need to re-route to home page
-        this.successfulSubmission()
+        setTimeout(() => {
+          this.successfulSubmission()
+        }, 500)
+
       })
   }
 
@@ -109,6 +96,10 @@ export default class AddPost extends React.Component {
     })
 
   }
+  getFile(file){
+    this.setState({ uploadedFile: file })
+  }
+
   renderFieldTypes () {
     let fields = ''
 
@@ -117,21 +108,19 @@ export default class AddPost extends React.Component {
         fields = (
           <>
             <label htmlFor='image'>Insert Image Address</label>
-            <input
-              type='text'
+
+            <FileBase64
               id='image'
               name='image'
               accept='image/png, image/jpeg'
-              onChange={this.fileSelectedHandler}
-              required
-            >
-            </input>
+              multiple={ false }
+              onDone={ this.getFile.bind(this) }
+            />
             <label htmlFor='caption'>Image Caption</label>
             <textarea
               type='text'
               id='caption'
               name='caption'
-              onChange={this.constructPost}
               ></textarea>
           </>
         )
@@ -144,7 +133,6 @@ export default class AddPost extends React.Component {
               type='text'
               id='text_headline'
               name='text_headline'
-              onChange={this.constructPost}
               placeholder='Headline'
             >
           </input>
@@ -153,7 +141,6 @@ export default class AddPost extends React.Component {
             type='text'
             id='text_content'
             name='text_content'
-            onChange={this.constructPost}
             placeholder='Text Body'
             ></textarea>
           </>
@@ -167,18 +154,35 @@ export default class AddPost extends React.Component {
               type='text'
               id='video'
               name='video'
-              onChange={this.constructPost}
             >
-          </input>
+            </input>
+            <label htmlFor='caption'>Video Caption</label>
+            <textarea
+              type='text'
+              id='caption'
+              name='caption'
+              ></textarea>
           </>
         )
         break;
-      case 'audio':
-        fields = (
-          <>
-            <p className='alert'>TBD. Need to investigate uploading of MP3 or using Soundcloud</p>
-          </>
-        )
+      case 'Audio':
+      fields = (
+        <>
+          <label htmlFor='audio'>Insert Audio File Location</label>
+
+          <input
+            id='audio'
+            name='audio'
+            accept='image/png, image/jpeg'
+          />
+          <label htmlFor='caption'>Audio Caption</label>
+          <textarea
+            type='text'
+            id='caption'
+            name='caption'
+            ></textarea>
+        </>
+      )
         break;
       default:
 
@@ -198,13 +202,16 @@ export default class AddPost extends React.Component {
         onSubmit={this.handleSubmit}
       >
       <div className='form-title'>
-      <h2>New Post</h2>
+        <h2>New Post</h2>
+      </div>
+      <div className='message'>
+        {this.generateMessage()}
       </div>
       <div className='select'>
         <label htmlFor='post_type'>Post Type</label>
         <select
           required
-          aria-label="Select your post type!"
+          aria-label="Select your post type"
           name='post_type'
           id='post_type'
           onChange={this.updatePostType}

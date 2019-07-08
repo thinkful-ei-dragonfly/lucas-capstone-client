@@ -22,10 +22,7 @@ const PostApiService = {
       },
       body: JSON.stringify(post)
     })
-    .then(res => { // is a promise
-      // (!res.ok)
-      // ? res.json().then(e => Promise.reject(e))
-      // : return res.json()
+    .then(res => {
       if (!res.ok) {
         res.json().then(e => Promise.reject(e))
       }
@@ -48,19 +45,21 @@ const PostApiService = {
     })
   },
   saveStyle(styles) {
-    return fetch(`${config.API_ENDPOINT}/styles`, {
+    const { post } = styles
+    return fetch(`${config.API_ENDPOINT}/styles/${post}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
-        'authorization': `basic ${TokenService.getAuthToken()}`
+        'authorization': `bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(styles)
     })
     .then(res => {
       (!res.ok)
-      ? res.json().then(e => Promise.reject(e))
-      : res.json()
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
     })
+    .then(response => console.log(response.json()))
   }
 }
 

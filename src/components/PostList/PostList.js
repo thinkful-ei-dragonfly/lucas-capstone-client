@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Post from '../Post/Post'
 import PostContext from '../../PostContext/PostContext'
 import config from '../../config'
@@ -30,7 +29,6 @@ export default class PostList extends React.Component {
         })
       })
   }
-
   render () {
     return (
       <div>
@@ -44,7 +42,10 @@ export default class PostList extends React.Component {
             height: `${style.height_style}`,
           }
           return <div className={`${post.type}-post post draggable`} key={post.id} id={post.id} style={styleString} >
-            <Post type={post.post_type} post={post}/>
+            <Post
+              type={post.post_type}
+              post={post}
+            />
           </div>
         })}
       </ul>

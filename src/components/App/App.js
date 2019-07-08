@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.scss';
-import $ from 'jquery';
+import $ from 'jquery'
 import 'jquery-ui'
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/resizable';
-import { Route, Link, Switch } from 'react-router-dom'
-import config from '../../config.js'
+import { Route, Switch } from 'react-router-dom'
 import PostList from '../PostList/PostList'
 import PostContext from '../../PostContext/PostContext'
 import Header from '../Header/Header'
@@ -31,7 +30,7 @@ export default class App extends React.Component{
   }
 
   componentDidMount() {
-    
+
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -86,7 +85,6 @@ export default class App extends React.Component{
   }
 
 
-
   renderMainContent() {
     const { posts, styles } = this.state
     return (
@@ -113,7 +111,7 @@ export default class App extends React.Component{
     const contextValue = { posts: this.state.posts, styles: this.state.styles }
     return (
       <PostContext.Provider value={contextValue}>
-        <Header />
+        <Header/>
         <div className="App">
           <main className="main-content">
             {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
