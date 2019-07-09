@@ -1,9 +1,13 @@
 import React from 'react'
 import PostApiService from '../../services/post-api-services'
 import FileBase64 from 'react-file-base64';
+import PostContext from '../../PostContext/PostContext'
+import config from '../../config'
 
 
-export default class AddPost extends React.Component {
+
+export default class EditPost extends React.Component {
+  static contextType = PostContext || {}
   state = {
     post: {},
     uploadedFile: null,
@@ -20,11 +24,24 @@ export default class AddPost extends React.Component {
       <p>{string}</p>
     )
   }
+  componentDidMount() {
+    const postId = this.props.match.params.post_id
+      return fetch(`${config.API_ENDPOINT}/posts/${postId}`)
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          this.setState({
+            post: res
+          })
+        })
+    }
   handleSubmit = ev => {
     ev.preventDefault()
     ev.persist()
     const { post_type, title, text_headline, text_content, caption, video, audio} = ev.target
     let newPost = {
+      id: this.props.match.params.post_id,
       type: this.state.post_type,
       title: title.value
     }
@@ -48,18 +65,12 @@ export default class AddPost extends React.Component {
         break;
       default:
     }
-    PostApiService.addPost(newPost)
+    PostApiService.updatePost(newPost)
       .then(res => {
         if (!res.ok) {
           this.generateMessage(res.error)
         }
-        this.generateMessage('Your message was successfully created')
-        PostApiService.postStyle({
-          post: res.id
-        })
-          .then(res => {
-            console.log(res)
-          })
+        this.generateMessage('Your post was successfully updated')
 
         switch (this.state.post_type) {
           case 'Text':
@@ -101,7 +112,6 @@ export default class AddPost extends React.Component {
 
   renderFieldTypes () {
     let fields = ''
-
     switch (this.state.post_type) {
       case 'Image':
         fields = (
@@ -120,6 +130,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='caption'
               name='caption'
+              placeholder={this.state.post.caption}
               ></textarea>
           </>
         )
@@ -133,6 +144,7 @@ export default class AddPost extends React.Component {
               id='text_headline'
               name='text_headline'
               placeholder='Headline'
+              defaultValue={this.state.post.text_title}
             >
           </input>
           <label htmlFor='text_content'>Body</label>
@@ -140,7 +152,7 @@ export default class AddPost extends React.Component {
             type='text'
             id='text_content'
             name='text_content'
-            placeholder='Text Body'
+            placeholder={this.state.post.text_content}
             ></textarea>
           </>
         )
@@ -153,6 +165,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='video'
               name='video'
+              defaultValue={this.state.post.video}
             >
             </input>
             <label htmlFor='caption'>Video Caption</label>
@@ -160,6 +173,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='caption'
               name='caption'
+              placeholder={this.state.post.caption}
               ></textarea>
           </>
         )
@@ -201,7 +215,7 @@ export default class AddPost extends React.Component {
         onSubmit={this.handleSubmit}
       >
       <div className='form-title'>
-        <h2>New Post</h2>
+        <h2>Edit Post</h2>
       </div>
       <div className='message'>
         {this.generateMessage()}
@@ -214,6 +228,7 @@ export default class AddPost extends React.Component {
           name='post_type'
           id='post_type'
           onChange={this.updatePostType}
+          defaultValue={this.props.post_type}
         >
         <option value='Text'>Text</option>
         <option value='Image'>Image</option>
@@ -223,7 +238,7 @@ export default class AddPost extends React.Component {
       </div>
       <div className='form-fields'>
         <label htmlFor='title'>Post Title</label>
-        <input type='text' name='title' id='title' placeholder='Post Title'></input>
+        <input type='text' name='title' id='title' placeholder='Post Title' defaultValue={this.state.post.title}></input>
         {this.renderFieldTypes()}
       </div>
       <button

@@ -29,6 +29,26 @@ const PostApiService = {
       return res.json()
     })
   },
+  updatePost(post) {
+    const { id } = post
+    return fetch(`${config.API_ENDPOINT}/posts/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(post)
+    })
+  },
+  deletePost(id) {
+    return fetch(`${config.API_ENDPOINT}/posts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`
+      }
+    })
+  },
   postStyle(post) {
     return fetch(`${config.API_ENDPOINT}/styles`, {
       method: 'POST',
@@ -54,13 +74,16 @@ const PostApiService = {
       },
       body: JSON.stringify(styles)
     })
-    .then(res => {
-      (!res.ok)
-        ? res.json().then(e => Promise.reject(e))
-        : res.json()
+  },
+  deleteStyle(id) {
+    return fetch(`${config.API_ENDPOINT}/styles/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`
+      }
     })
-    .then(response => console.log(response.json()))
-  }
+  },
 }
 
 export default PostApiService

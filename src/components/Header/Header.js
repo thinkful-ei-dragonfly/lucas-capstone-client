@@ -46,7 +46,6 @@ export default class Header extends React.Component {
 
 
   render() {
-    const newVariable = 'hello'
     return (
       <header className="Header">
         <h1 className="header-h1">

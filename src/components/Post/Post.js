@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PostContext from '../../PostContext/PostContext'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
+
 import $ from 'jquery'
 
 export default class Post extends React.Component {
@@ -11,8 +13,10 @@ export default class Post extends React.Component {
     type: this.props.post.type,
     video_id: `https://player.vimeo.com/video/${this.props.post.video}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=false&amp;transparent=0&amp;gesture=media`
   }
-  componentDidMount() {
+
+  componentDidMount = () => {
     $('.draggable').draggable({
+      stack: ".draggable",
       stop: (e) => {
         this.updateStyle(e)
       }
@@ -23,7 +27,26 @@ export default class Post extends React.Component {
        this.updateStyle(e)
      }
    })
+   setTimeout(() => {
+     let targetNode = document.getElementById(`${this.props.post.id}`)
+     let config = {
+       attributes: true,
+       childList: true,
+       subtree: false
+     }
+     let callback =  (mutationsList, observer) => {
+       for(let mutation of mutationsList) {
+         if (mutation.attributeName === 'style') {
+           this.updateStyle(mutation)
+         }
+       }
+     }
+     let observer = new MutationObserver(callback)
+
+     observer.observe(targetNode, config)
+   }, 1000)
   }
+
   updateStyle = (e) => {
     if (!TokenService.hasAuthToken()) {
       return
@@ -31,12 +54,16 @@ export default class Post extends React.Component {
     const top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
     const left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
     let width_calculated,
-    height_calculated
+    height_calculated,
+    z_index
     if (e.target.style.width) {
       width_calculated = `${(((e.target.style.width.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
     }
     if (e.target.style.height) {
       height_calculated = `${(((e.target.style.height.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    }
+    if (e.target.style['z-index']) {
+      z_index = e.target.style['z-index']
     }
 
 
@@ -45,15 +72,46 @@ export default class Post extends React.Component {
       top_style: top_calculated,
       left_style: left_calculated,
       width_style: width_calculated,
-      height_style: height_calculated
+      height_style: height_calculated,
+      z_index
     }
-    debugger;
     PostApiService.saveStyle(updatedPost)
-      .then(res => console.log(res))
+  }
 
+  deletePost = (e) => {
+    e.preventDefault()
+    PostApiService.deleteStyle(this.props.post.id)
+    .then(res => {
+        PostApiService.deletePost(this.props.post.id)
+        .then(response => {
+          this.props.onDelete(this.props.post.id)
+        })
+    })
+  }
+  reload = () => {
+    // need to think of a cleaner way of doing this.
+    window.location.href = '/'
   }
   render () {
     let renderedPost = ''
+    let editlink = ''
+    if (TokenService.hasAuthToken()) {
+      editlink = (
+        <div className='post-controls'>
+          <Link
+            to={`/post/${this.props.post.id}`}
+          >
+          Edit Post
+          </Link>
+          <Link
+            to={`/delete/post/${this.props.post.id}`}
+            onClick={this.deletePost}>
+            Delete Post
+          </Link>
+        </div>
+
+      )
+    }
 
     switch (this.props.post.type) {
 
@@ -95,14 +153,11 @@ export default class Post extends React.Component {
       default:
 
     }
-
-    // if (this.props.post.post_type == 'text') {
-    //
-    // }
     return (
-      <>
+      <div className='post-container'>
+      {editlink}
       {renderedPost}
-      </>
+    </div>
     )
 
   }

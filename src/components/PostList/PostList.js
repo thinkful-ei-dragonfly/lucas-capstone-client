@@ -1,10 +1,12 @@
 import React from 'react'
 import Post from '../Post/Post'
-import PostContext from '../../PostContext/PostContext'
+
 import config from '../../config'
 
+
+
 export default class PostList extends React.Component {
-  static contextType = PostContext || {}
+
   state = {
     posts: [],
     styles: []
@@ -29,10 +31,21 @@ export default class PostList extends React.Component {
         })
       })
   }
+  deletePost = (post) => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      this.setState({
+        posts: this.state.posts.filter(obj => obj.id !== post)
+      })
+    } else {
+      return
+    }
+
+  }
   render () {
+
     return (
-      <div>
-      <ul>
+
+      <ul className='postList'>
         {this.state.posts.map(post => {
           const style = this.state.styles.find(style => style.post === post.id)
           const styleString = {
@@ -40,16 +53,18 @@ export default class PostList extends React.Component {
             top: `${style.top_style}`,
             width: `${style.width_style}`,
             height: `${style.height_style}`,
+            zIndex: `${parseInt(style.z_index)}`
           }
           return <div className={`${post.type}-post post draggable`} key={post.id} id={post.id} style={styleString} >
             <Post
               type={post.post_type}
+              onDelete={this.deletePost}
               post={post}
             />
           </div>
         })}
       </ul>
-      </div>
+
     )
   }
 }

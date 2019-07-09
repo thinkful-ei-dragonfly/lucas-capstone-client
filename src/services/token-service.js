@@ -9,16 +9,12 @@ const TokenService = {
     window.sessionStorage.setItem(config.TOKEN_KEY, token)
   },
   getAuthToken() {
-    console.info('clearing the auth token')
     return window.sessionStorage.getItem(config.TOKEN_KEY)
   },
   clearAuthToken() {
     window.sessionStorage.removeItem(config.TOKEN_KEY)
   },
-  hasAuthToken() {
-    if (TokenService.getAuthToken()) {
-      console.log('has auth token')
-    }
+  hasAuthToken() {    
     return !!TokenService.getAuthToken()
   },
   makeBasicAuthToken(userName, password) {

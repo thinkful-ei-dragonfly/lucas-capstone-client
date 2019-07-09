@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.scss';
-import $ from 'jquery'
 import 'jquery-ui'
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/resizable';
 import { Route, Switch } from 'react-router-dom'
 import PostList from '../PostList/PostList'
-import PostContext from '../../PostContext/PostContext'
 import Header from '../Header/Header'
 import AddPost from '../AddPost/AddPost'
+import EditPost from '../EditPost/EditPost'
 import LoginPage from '../../routes/LoginPage/LoginPage'
 import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage'
 import PrivateRoute from '../Utils/PrivateRoute'
@@ -104,13 +103,17 @@ export default class App extends React.Component{
           path='/add-post'
           component={AddPost}
           />
+          <PrivateRoute
+            path={'/post/:post_id'}
+            component={EditPost}
+            posts={this.state.posts}
+          />
       </>
     )
   }
   render() {
-    const contextValue = { posts: this.state.posts, styles: this.state.styles }
     return (
-      <PostContext.Provider value={contextValue}>
+      <>
         <Header/>
         <div className="App">
           <main className="main-content">
@@ -124,14 +127,11 @@ export default class App extends React.Component{
                 path={'/register'}
                 component={RegistrationPage}
               />
-              <PrivateRoute
-                path={'/post/:post_id'}
-              />
             {this.renderMainContent()}
             </Switch>
           </main>
         </div>
-      </PostContext.Provider>
+      </>
     );
   }
 }
