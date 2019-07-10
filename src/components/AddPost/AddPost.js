@@ -27,15 +27,14 @@ export default class AddPost extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault()
     ev.persist()
-    const { post_type, title, text_headline, text_content, caption, video, audio} = ev.target
+    const { post_type, title, text_title, text_content, caption, video, audio} = ev.target
     let newPost = {
       type: this.state.post_type,
       title: title.value
     }
-
     switch (post_type.value) {
       case 'Text':
-        newPost.text_headline = text_headline.value
+        newPost.text_title = text_title.value
         newPost.text_content = text_content.value
         break;
       case 'Image':
@@ -52,6 +51,7 @@ export default class AddPost extends React.Component {
         break;
       default:
     }
+
     PostApiService.addPost(newPost)
       .then(res => {
         if (!res.ok) {
@@ -71,7 +71,7 @@ export default class AddPost extends React.Component {
         switch (this.state.post_type) {
           case 'Text':
             title.value = ''
-            text_headline.value = ''
+            text_title.value = ''
             text_content.value = ''
             break;
           case 'Image':
@@ -135,11 +135,11 @@ export default class AddPost extends React.Component {
       case 'Text':
         fields = (
           <>
-            <label htmlFor='text_headline'>Headline</label>
+            <label htmlFor='text_title'>Headline</label>
             <input
               type='text'
-              id='text_headline'
-              name='text_headline'
+              id='text_title'
+              name='text_title'
               placeholder='Post Headline'
             >
           </input>
@@ -211,7 +211,7 @@ export default class AddPost extends React.Component {
         onSubmit={this.handleSubmit}
       >
       <div className='form-title'>
-        <h2 clasName='form-title-header'>Create New Post</h2>
+        <h2 className='form-title-header'>Create New Post</h2>
       </div>
       <div className='message'>
         {this.generateMessage()}

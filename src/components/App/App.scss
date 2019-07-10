@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   top: 0;
   border-bottom: 1px solid black;
   text-transform: uppercase;
@@ -87,7 +87,13 @@ h3 {
   }
 
   &.Text-post {
-    background: #fff;
+    .post-container {
+      background: #fff;
+      height: 100%;
+      .text-post-content {
+        padding: 10px;
+      }
+    }
     color: #111;
   }
   &.Video-post {
@@ -102,6 +108,16 @@ h3 {
         height:100%;
       }
     }
+  }
+  .caption-popup {
+    background: #fff;
+    position: absolute;
+    width: 175px;
+    padding: 10px;
+    right: -165px;
+    // display: none;
+    color: #111;
+    border: 1px solid;
   }
 }
 

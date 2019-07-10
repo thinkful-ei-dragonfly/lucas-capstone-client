@@ -39,7 +39,7 @@ export default class EditPost extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault()
     ev.persist()
-    const { post_type, title, text_headline, text_content, caption, video, audio} = ev.target
+    const { post_type, title, text_title, text_content, caption, video, audio} = ev.target
     let newPost = {
       id: this.props.match.params.post_id,
       type: this.state.post_type,
@@ -48,7 +48,7 @@ export default class EditPost extends React.Component {
 
     switch (post_type.value) {
       case 'Text':
-        newPost.text_headline = text_headline.value
+        newPost.text_title = text_title.value
         newPost.text_content = text_content.value
         break;
       case 'Image':
@@ -75,7 +75,7 @@ export default class EditPost extends React.Component {
         switch (this.state.post_type) {
           case 'Text':
             title.value = ''
-            text_headline.value = ''
+            text_title.value = ''
             text_content.value = ''
             break;
           case 'Image':
@@ -138,11 +138,11 @@ export default class EditPost extends React.Component {
       case 'Text':
         fields = (
           <>
-            <label htmlFor='text_headline'>Headline</label>
+            <label htmlFor='text_title'>Headline</label>
             <input
               type='text'
-              id='text_headline'
-              name='text_headline'
+              id='text_title'
+              name='text_title'
               placeholder='Headline'
               defaultValue={this.state.post.text_title}
             >

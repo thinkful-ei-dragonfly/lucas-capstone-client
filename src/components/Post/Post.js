@@ -11,7 +11,8 @@ export default class Post extends React.Component {
   state = {
     post: this.props.post,
     type: this.props.post.type,
-    video_id: `https://player.vimeo.com/video/${this.props.post.video}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=false&amp;transparent=0&amp;gesture=media`
+    video_id: `https://player.vimeo.com/video/${this.props.post.video}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=false&amp;transparent=0&amp;gesture=media`,
+    expanded: false
   }
 
   componentDidMount = () => {
@@ -82,6 +83,11 @@ export default class Post extends React.Component {
     }
     PostApiService.saveStyle(updatedPost)
   }
+  showCaption = (e) => {
+    this.setState({
+      expanded: !this.state.expanded
+    })
+  }
 
   deletePost = (e) => {
     e.preventDefault()
@@ -96,7 +102,14 @@ export default class Post extends React.Component {
   render () {
     let renderedPost = ''
     let editlink = ''
-    let divPopup = ''
+    let captionPopup = ''
+    if (this.props.post.caption) {
+      captionPopup = (
+        <div className='caption-popup'>
+          <p className='caption'>{this.props.post.caption}</p>
+        </div>
+      )
+    }
     if (TokenService.hasAuthToken()) {
       editlink = (
         <div className='post-controls'>
@@ -122,7 +135,7 @@ export default class Post extends React.Component {
         renderedPost = (
           <div className='text-post-content'>
             <h2 className='text-post-h2'>{this.props.post.title}</h2>
-            <p className='text-post-title'>{this.props.post.text_headline}</p>
+            <h3 className='text-post-title'>{this.props.post.text_title}</h3>
             <p className='text-post-p'>{this.props.post.text_content}</p>
           </div>
         )
@@ -157,8 +170,11 @@ export default class Post extends React.Component {
 
     }
     return (
-      <div className='post-container'>
+      <div className='post-container' onClick={this.showCaption}>
       {editlink}
+      {this.state.expanded
+        ? captionPopup
+        : ''}
       {renderedPost}
     </div>
     )
