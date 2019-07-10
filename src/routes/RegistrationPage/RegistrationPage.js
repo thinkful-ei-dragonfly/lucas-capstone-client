@@ -16,7 +16,7 @@ export default class RegistrationPage extends Component {
   render() {
     return (
       <section className='RegistrationPage'>
-        <h2>Register</h2>
+        <h2>Register for Colleción</h2>
         <RegistrationForm
           onRegistrationSuccess={this.handleRegistrationSuccess}
         />

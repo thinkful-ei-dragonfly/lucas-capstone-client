@@ -13,7 +13,7 @@ export default class Header extends React.Component {
 
   renderLogoutLink() {
     return (
-      <div className='Header__logged-in'>
+      <div className='logged-in'>
         <Link
           to='/add-post'>
           Add New Post
@@ -30,12 +30,14 @@ export default class Header extends React.Component {
 
   renderLoginLink() {
     return (
-      <div className='Header__not-logged-in'>
+      <div className='logged-out'>
+        <Link to='/about'>
+          About
+        </Link>
         <Link
           to='/login'>
           Log in
         </Link>
-        {' '}
         <Link
           to='/register'>
           Register

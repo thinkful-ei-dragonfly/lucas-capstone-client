@@ -21,7 +21,12 @@ export default class Post extends React.Component {
         this.updateStyle(e)
       }
     });
-    $('.draggable').resizable({
+    $('.Text-post').resizable({
+     stop: (e) => {
+       this.updateStyle(e)
+     }
+   })
+    $('.Image-post, .Video-post').resizable({
      aspectRatio: true,
      stop: (e) => {
        this.updateStyle(e)
@@ -88,25 +93,23 @@ export default class Post extends React.Component {
         })
     })
   }
-  reload = () => {
-    // need to think of a cleaner way of doing this.
-    window.location.href = '/'
-  }
   render () {
     let renderedPost = ''
     let editlink = ''
+    let divPopup = ''
     if (TokenService.hasAuthToken()) {
       editlink = (
         <div className='post-controls'>
           <Link
             to={`/post/${this.props.post.id}`}
           >
-          Edit Post
+          Edit
           </Link>
+          <p>{this.props.post.title}</p>
           <Link
             to={`/delete/post/${this.props.post.id}`}
             onClick={this.deletePost}>
-            Delete Post
+            Delete
           </Link>
         </div>
 

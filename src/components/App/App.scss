@@ -1,18 +1,108 @@
-.App-header {
-  background-color: #282c34;
-  height: 300px;
-  width: 500px;
-  border: 1px solid orange;
+// Header
+.Header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid black;
+  text-transform: uppercase;
+  background: white;
+  z-index: 999;
+  color: #111;
+  width: 100vw;
+
+  h1 {
+    padding-left: 25px;
+    font-size: 1em;
+    margin: 10px 0;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .logged-in,
+  .logged-out {
+    a {
+      border-left: 1px solid;
+      padding: 10px;
+    }
+  }
+}
+// Main
+body {
   color: white;
 }
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
+// Post
+.post {
+  width: 500px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px dotted #fff;
+  }
+  .post-controls {
+    background: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #111;
+    text-transform: uppercase;
+    color: #111;
+    p {
+      margin: 0;
+      padding: 10px 15px;
+      color: #111;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 10px 15px;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:first-of-type {
+        border-right: 1px solid;
+      }
+      &:nth-of-type(2) {
+        border-left: 1px solid;
+      }
 
-.App-link {
-  color: #61dafb;
+    }
+  }
+  img {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  &.Text-post {
+    background: #fff;
+    color: #111;
+  }
+  &.Video-post {
+    .video-post-content {
+      padding: 56.25% 0 0 0;
+      position: relative;
+      .video-post-player {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+      }
+    }
+  }
 }
 
 .ui-resizable { position: relative;}
@@ -32,86 +122,61 @@
   cursor: move;
 }
 
-.post {
-  width: 500px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid transparent;
-  &:hover {
-    border: 1px dotted #fff;
-  }
-
-  img {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  &.Text-post {
-    background: #fff;
-  }
-  &.Video-post {
-    .video-post-content {
-      padding: 56.25% 0 0 0;
-      position: relative;
-      .video-post-player {
-        position:absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-      }
-    }
-  }
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  padding: 0 25px;
-  border-bottom: 1px solid black;
-  text-transform: uppercase;
-  background: white;
-  z-index: 999;
-  color: #111;
-
-  h1 {
-    font-size: 1em;
-    font-weight: 400;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-}
-body {
-  color: white;
-}
-.post {
-  color: #111;
-}
-
+// AddPostForm
 .AddPostForm {
   display: flex;
   flex-direction: column;
   max-width: 700px;
   margin: 0 auto;
-  border: 1px solid white;
-  margin-top: 150px;
+  background: #fff;
+  color: #111;
+  margin-top: 75px;
 
+  .form-title {
+    text-align: center;
+    border-bottom: 1px solid #111;
+    h2 {
+      font-weight: 500;
+      margin: 0.5em;
+    }
+  }
+  .select {
+    padding-left: 10px;
+
+    #post_type {
+      background: #fff;
+      margin-left: 10px;
+      width: 6em;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBmaWxsPSIjMDEwMTAxIiBkPSJNMjAgMTJsLTEuNDEtMS40MUwxMyAxNi4xN1Y0aC0ydjEyLjE3bC01LjU4LTUuNTlMNCAxMmw4IDggOC04eiIvPjwvc3ZnPg=='),
+      linear-gradient(to bottom, #ffffff 0%,#ffffff 100%);
+    	background-repeat: no-repeat, repeat;
+    	background-position: right .5em top 50%, 0 0;
+      background-size: 1.25em auto, 100%;
+      padding: 10px;
+      height: 100%;
+      border-radius: 0;
+      -moz-appearance: none;
+    	-webkit-appearance: none;
+    	appearance: none;
+      color: #111;
+      text-transform: uppercase;
+      border-left: 1px solid #111;
+      border-right: 1px solid #111;
+      border-bottom: 0;
+      border-top: 0;
+
+      option: {
+        background: #fff;
+        border-radius: 0;
+      }
+    }
+  }
   .add-post-fields,
   .form-fields {
     display: flex;
     flex-direction: column;
     label {
       padding: 10px;
-      border-top: 1px solid white;
     }
     input,
     textarea {
@@ -120,22 +185,96 @@ body {
       background: transparent;
       font-size: 1.5em;
       border: none;
-      border-top: 1px solid white;
-      border-bottom: 1.25px solid white;
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #111;
     }
 
+  }
+  .form-fields {
+    label:first-of-type {
+      border-top: 1px solid;
+    }
   }
   button {
     padding: 15px;
     font-size: 1.5em;
     background: transparent;
     transition: .25s background ease, .25s color ease;
-    color: white;
+    color: #111;
     cursor: pointer;
     &:hover {
       background: white;
       color: black;
     }
 
+  }
+}
+// Login & Register {
+.LoginPage,
+.RegistrationPage {
+  margin: 0 auto;
+  background: #fff;
+  width: 100%;
+  color: #111;
+
+  h2 {
+    border-bottom: 1px solid;
+    text-align: center;
+    padding: 0.25em 0;
+    margin: 0;
+  }
+  .red {
+    border-bottom: 1px solid #111;
+    color: red;
+    padding: 1em 10px;
+    margin: 0;
+  }
+  .user_name,
+  .full_name,
+  .password {
+    border-bottom: 1px solid;
+    padding: 10px;
+    label {
+      margin-right: 15px;
+    }
+    input {
+      background: transparent;
+      border: 1px solid;
+      padding: 5px;
+    }
+
+
+  }
+  button {
+    width: 100%;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: 1px solid transparent;
+    text-align: center;
+    padding: 15px;
+    font-size: 1em;
+    cursor: pointer;
+    &:hover {
+      background: #000fff;
+      color: #fff;
+    }
+  }
+
+  @media (min-width: 768px ) {
+    max-width: 600px;
+    margin-top: 75px;
+  }
+}
+
+// Onboarding
+.onboarding-page {
+  background: #fff;
+  height: calc(100vh - 39px);
+  padding: 25px;
+  color: #111;
+  .onboarding-content {
+    a {
+      color: inherit;
+    }
   }
 }

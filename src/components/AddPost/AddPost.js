@@ -16,9 +16,13 @@ export default class AddPost extends React.Component {
     history.push(destination)
   }
   generateMessage(string) {
-    return (
-      <p>{string}</p>
-    )
+    if (this.state.error) {
+      return (
+        <p>{string}</p>
+      )
+    }
+    return null
+
   }
   handleSubmit = ev => {
     ev.preventDefault()
@@ -51,6 +55,9 @@ export default class AddPost extends React.Component {
     PostApiService.addPost(newPost)
       .then(res => {
         if (!res.ok) {
+          this.setState({
+            error: res.error
+          })
           this.generateMessage(res.error)
         }
         this.generateMessage('Your message was successfully created')
@@ -120,6 +127,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='caption'
               name='caption'
+              placeholder="Enter Image Caption/Description"
               ></textarea>
           </>
         )
@@ -132,7 +140,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='text_headline'
               name='text_headline'
-              placeholder='Headline'
+              placeholder='Post Headline'
             >
           </input>
           <label htmlFor='text_content'>Body</label>
@@ -140,7 +148,7 @@ export default class AddPost extends React.Component {
             type='text'
             id='text_content'
             name='text_content'
-            placeholder='Text Body'
+            placeholder='Enter Post Body'
             ></textarea>
           </>
         )
@@ -148,11 +156,12 @@ export default class AddPost extends React.Component {
       case 'Video':
         fields = (
           <>
-            <label htmlFor='video'>Enter a Vimeo ID below</label>
+            <label htmlFor='video'>Vimeo ID</label>
             <input
               type='text'
               id='video'
               name='video'
+              placeholder='Enter Vimeo ID'
             >
             </input>
             <label htmlFor='caption'>Video Caption</label>
@@ -160,6 +169,7 @@ export default class AddPost extends React.Component {
               type='text'
               id='caption'
               name='caption'
+              placeholder='Video Caption'
               ></textarea>
           </>
         )
@@ -201,7 +211,7 @@ export default class AddPost extends React.Component {
         onSubmit={this.handleSubmit}
       >
       <div className='form-title'>
-        <h2>New Post</h2>
+        <h2 clasName='form-title-header'>Create New Post</h2>
       </div>
       <div className='message'>
         {this.generateMessage()}
@@ -223,7 +233,7 @@ export default class AddPost extends React.Component {
       </div>
       <div className='form-fields'>
         <label htmlFor='title'>Post Title</label>
-        <input type='text' name='title' id='title' placeholder='Post Title'></input>
+        <input type='text' name='title' id='title' placeholder='Enter post title...'></input>
         {this.renderFieldTypes()}
       </div>
       <button

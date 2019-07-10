@@ -49,7 +49,8 @@ export default class RegistrationForm extends React.Component {
             name='full_name'
             type='text'
             required
-            id='RegistrationForm__full_name'>
+            id='RegistrationForm__full_name'
+            placeholder="Lorem Ipsum">
           </input>
       </div>
       <div className='user_name'>
@@ -60,7 +61,8 @@ export default class RegistrationForm extends React.Component {
             name='user_name'
             type='text'
             required
-            id='RegistrationForm__user_name'>
+            id='RegistrationForm__user_name'
+            placeholder="loremipsum">
           </input>
       </div>
       <div className='password'>
@@ -71,7 +73,8 @@ export default class RegistrationForm extends React.Component {
             name='password'
             type='password'
             required
-            id='RegistrationForm__password'>
+            id='RegistrationForm__password'
+            placeholder="ultra super incredibly secure password">
           </input>
         </div>
         <button type='submit'>

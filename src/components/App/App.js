@@ -8,6 +8,7 @@ import PostList from '../PostList/PostList'
 import Header from '../Header/Header'
 import AddPost from '../AddPost/AddPost'
 import EditPost from '../EditPost/EditPost'
+import OnBoard from '../OnBoard/OnBoard'
 import LoginPage from '../../routes/LoginPage/LoginPage'
 import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage'
 import PrivateRoute from '../Utils/PrivateRoute'
@@ -83,35 +84,8 @@ export default class App extends React.Component{
     this.forceUpdate()
   }
 
-
-  renderMainContent() {
-    const { posts, styles } = this.state
-    return (
-      <>
-        <Route
-          exact
-          path="/"
-          render={routeProps => (
-            <PostList
-              posts={posts}
-              styles={styles}
-              />
-          )}
-          />
-        <PrivateRoute
-          exact
-          path='/add-post'
-          component={AddPost}
-          />
-          <PrivateRoute
-            path={'/post/:post_id'}
-            component={EditPost}
-            posts={this.state.posts}
-          />
-      </>
-    )
-  }
   render() {
+    const { posts, styles } = this.state
     return (
       <>
         <Header/>
@@ -122,12 +96,35 @@ export default class App extends React.Component{
               <PublicOnlyRoute
                 path={'/login'}
                 component={LoginPage}
-                />
-                <PublicOnlyRoute
+              />
+              <PublicOnlyRoute
                 path={'/register'}
                 component={RegistrationPage}
               />
-            {this.renderMainContent()}
+              <PublicOnlyRoute
+                path={'/about'}
+                component={OnBoard}
+              />
+              <Route
+                exact
+                path="/"
+                render={routeProps => (
+                  <PostList
+                    posts={posts}
+                    styles={styles}
+                    />
+                )}
+              />
+              <PrivateRoute
+                exact
+                path='/add-post'
+                component={AddPost}
+                />
+              <PrivateRoute
+                path={'/post/:post_id'}
+                component={EditPost}
+                posts={this.state.posts}
+              />
             </Switch>
           </main>
         </div>
