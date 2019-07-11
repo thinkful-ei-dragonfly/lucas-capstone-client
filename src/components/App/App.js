@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.scss';
-import 'jquery-ui'
-import 'jquery-ui/ui/widgets/draggable';
-import 'jquery-ui/ui/widgets/resizable';
+
 import { Route, Switch } from 'react-router-dom'
 import PostList from '../PostList/PostList'
 import Header from '../Header/Header'
@@ -21,7 +19,8 @@ export default class App extends React.Component{
   state = {
     posts: [],
     styles: [],
-    hasError: false
+    hasError: false,
+    authenticated: false
   }
 
   static getDerivedStateFromError(error) {
@@ -58,6 +57,18 @@ export default class App extends React.Component{
     }
   }
 
+  login = () => {
+    if (TokenService.hasAuthToken) {
+      this.setState({
+        authenticated: true
+      })
+    } else {
+      this.setState({
+        authenticated: false
+      })
+    }
+  }
+
   componentWillUnmount() {
     /*
       when the app unmounts,
@@ -88,7 +99,9 @@ export default class App extends React.Component{
     const { posts, styles } = this.state
     return (
       <>
-        <Header/>
+        <Header
+          onLogin={this.login}
+        />
         <div className="App">
           <main className="main-content">
             {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
@@ -96,6 +109,7 @@ export default class App extends React.Component{
               <PublicOnlyRoute
                 path={'/login'}
                 component={LoginPage}
+                onLogin={this.login}
               />
               <PublicOnlyRoute
                 path={'/register'}

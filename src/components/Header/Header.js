@@ -9,6 +9,7 @@ export default class Header extends React.Component {
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
+    this.forceUpdate()
   }
 
   renderLogoutLink() {

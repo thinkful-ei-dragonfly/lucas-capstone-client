@@ -4,7 +4,11 @@ import PostContext from '../../PostContext/PostContext'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 
-import $ from 'jquery'
+
+import 'jquery-ui';
+import 'jquery-ui/ui/widgets/draggable';
+import 'jquery-ui/ui/widgets/resizable';
+import jQuery from 'jquery'
 
 export default class Post extends React.Component {
   static contextType = PostContext || {}
@@ -16,18 +20,18 @@ export default class Post extends React.Component {
   }
 
   componentDidMount = () => {
-    $('.draggable').draggable({
+    jQuery('.draggable').draggable({
       stack: ".draggable",
       stop: (e) => {
         this.updateStyle(e)
       }
     });
-    $('.Text-post').resizable({
+    jQuery('.Text-post').resizable({
      stop: (e) => {
        this.updateStyle(e)
      }
    })
-    $('.Image-post, .Video-post').resizable({
+    jQuery('.Image-post, .Video-post').resizable({
      aspectRatio: true,
      stop: (e) => {
        this.updateStyle(e)
