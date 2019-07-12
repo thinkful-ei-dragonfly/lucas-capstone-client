@@ -4,6 +4,8 @@ Colección is an interactive, multimedia, collage-style blog leveraging React, E
 
 Authors can create Image, Video, or Text post objects. These posts can be resized and rearranged as a collage
 
+## Live App
+
 ## Built With
 
 * [React](https://facebook.github.io/create-react-app)
