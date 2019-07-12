@@ -10,7 +10,6 @@ import 'jquery-ui/ui/widgets/resizable';
 import jQuery from 'jquery'
 
 export default class Post extends React.Component {
-  static contextType = PostContext || {}
   state = {
     post: this.props.post,
     type: this.props.post.type,

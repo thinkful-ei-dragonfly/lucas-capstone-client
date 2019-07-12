@@ -1,13 +1,11 @@
 import React from 'react'
 import PostApiService from '../../services/post-api-services'
-import FileBase64 from 'react-file-base64';
-import PostContext from '../../PostContext/PostContext'
+import FileBase64 from 'react-file-base64'
 import config from '../../config'
 
 
 
 export default class EditPost extends React.Component {
-  static contextType = PostContext || {}
   state = {
     post: {},
     uploadedFile: null,
