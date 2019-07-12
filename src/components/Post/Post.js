@@ -170,7 +170,7 @@ export default class Post extends React.Component {
         renderedPost = (
           <div className='video-post-wrapper'>
             <div className='video-post-content'>
-              <iframe className='video-post-player' src={this.state.video_id}  frameBorder="0" allowFullScreen={true} allowtransparency=""></iframe>
+              <iframe className='video-post-player' src={this.state.video_id} title={this.props.post.title} frameBorder="0" allowFullScreen={true} allowtransparency=""></iframe>
             </div>
           </div>
         )

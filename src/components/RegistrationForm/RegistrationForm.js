@@ -37,7 +37,6 @@ export default class RegistrationForm extends React.Component {
       <form
         className='RegistrationForm'
         onSubmit={this.handleSubmit}
-        role='form'
         aria-label='Registration Form'
       >
       <div role='alert'>
@@ -86,7 +85,6 @@ export default class RegistrationForm extends React.Component {
         </div>
         <button
           type='submit'
-          role='button'
           >
           Register
         </button>

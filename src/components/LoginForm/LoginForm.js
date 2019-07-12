@@ -33,7 +33,6 @@ export default class LoginForm extends React.Component {
       <form
         className='LoginForm'
         onSubmit={this.handleSubmitJwtAuth}
-        role="form"
         aria-label="Login Form"
       >
         <div role='alert' >
@@ -64,7 +63,6 @@ export default class LoginForm extends React.Component {
         </div>
         <button
           type='submit'
-          role="button"
           >
           Login
         </button>

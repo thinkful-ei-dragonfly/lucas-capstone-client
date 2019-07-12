@@ -39,7 +39,7 @@ export default class EditPost extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault()
     ev.persist()
-    const { post_type, title, text_title, text_content, caption, video, audio} = ev.target
+    const { post_type, title, text_title, text_content, caption, video} = ev.target
     let newPost = {
       id: this.props.match.params.post_id,
       type: this.state.post_type,
@@ -190,7 +190,6 @@ export default class EditPost extends React.Component {
       <form
         className='AddPostForm'
         onSubmit={this.handleSubmit}
-        role="form"
       >
       <div className='form-title'>
         <h2>Edit Post</h2>
@@ -227,7 +226,6 @@ export default class EditPost extends React.Component {
       <button
         type='submit'
         className='form-submit'
-        role='button'
         aria-label="Submit Form"
         >Submit</button>
       </form>

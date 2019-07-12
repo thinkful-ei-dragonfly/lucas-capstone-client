@@ -189,7 +189,6 @@ export default class AddPost extends React.Component {
       <form
         className='AddPostForm'
         onSubmit={this.handleSubmit}
-        role='form'
         aria-label="Create new Post"
       >
       <div className='form-title'>
