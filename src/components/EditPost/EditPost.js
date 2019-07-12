@@ -59,10 +59,6 @@ export default class EditPost extends React.Component {
         newPost.video = video.value
         newPost.caption = caption.value
         break
-      case 'Audio':
-        newPost.audio = audio.value
-        newPost.caption = caption.value
-        break;
       default:
     }
     PostApiService.updatePost(newPost)
@@ -85,11 +81,6 @@ export default class EditPost extends React.Component {
           case 'Video':
             title.value = ''
             video.value = ''
-            break;
-          case 'Audio':
-            title.value = ''
-            audio.value = ''
-            caption.value = ''
             break;
           default:
         }
@@ -177,25 +168,6 @@ export default class EditPost extends React.Component {
               ></textarea>
           </>
         )
-        break;
-      case 'Audio':
-      fields = (
-        <>
-          <label htmlFor='audio'>Insert Audio File Location</label>
-
-          <input
-            id='audio'
-            name='audio'
-            accept='image/png, image/jpeg'
-          />
-          <label htmlFor='caption'>Audio Caption</label>
-          <textarea
-            type='text'
-            id='caption'
-            name='caption'
-            ></textarea>
-        </>
-      )
         break;
       default:
 
