@@ -6,6 +6,8 @@ Authors can create Image, Video, or Text post objects. These posts can be resize
 
 ## Live App
 
+https://coleccion.lucasvocos.now.sh/
+
 ## Built With
 
 * [React](https://facebook.github.io/create-react-app)

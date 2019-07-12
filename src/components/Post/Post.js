@@ -64,17 +64,33 @@ export default class Post extends React.Component {
     left_calculated,
     height_calculated,
     z_index
-    if (e.target.style.top) {
-      top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    if (e.target.style.top !== false) {
+      if (e.target.style.top.includes('%')) {
+          top_calculated = `${(((e.target.style.top.split('%')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+      } else if (e.target.style.top.includes('px')) {
+        top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+      }
     }
-    if (e.target.style.left) {
-      left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+    if (e.target.style.left !== false) {
+      if (e.target.style.left.includes('%')) {
+          left_calculated = `${(((e.target.style.left.split('%')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+      } else if (e.target.style.left.includes('px')) {
+        left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+      }
     }
-    if (e.target.style.width) {
-      width_calculated = `${(((e.target.style.width.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+    if (e.target.style.width !== false) {
+      if (e.target.style.width.includes('%')) {
+          width_calculated = `${(((e.target.style.width.split('%')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+      } else if (e.target.style.width.includes('px')) {
+        width_calculated = `${(((e.target.style.width.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+      }
     }
-    if (e.target.style.height) {
-      height_calculated = `${(((e.target.style.height.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    if (e.target.style.height !== false) {
+      if (e.target.style.height.includes('%')) {
+          height_calculated = `${(((e.target.style.height.split('%')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+      } else if (e.target.style.height.includes('px')) {
+        height_calculated = `${(((e.target.style.height.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+      }
     }
     if (e.target.style['z-index']) {
       z_index = e.target.style['z-index']
