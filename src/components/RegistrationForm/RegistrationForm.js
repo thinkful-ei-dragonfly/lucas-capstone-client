@@ -37,6 +37,8 @@ export default class RegistrationForm extends React.Component {
       <form
         className='RegistrationForm'
         onSubmit={this.handleSubmit}
+        role='form'
+        aria-label='Registration Form'
       >
       <div role='alert'>
         {error && <p className='red'>{error}</p>}
@@ -50,7 +52,9 @@ export default class RegistrationForm extends React.Component {
             type='text'
             required
             id='RegistrationForm__full_name'
-            placeholder="Lorem Ipsum">
+            placeholder='Lorem Ipsum'
+            aria-label='Full Name'
+            >
           </input>
       </div>
       <div className='user_name'>
@@ -62,7 +66,9 @@ export default class RegistrationForm extends React.Component {
             type='text'
             required
             id='RegistrationForm__user_name'
-            placeholder="loremipsum">
+            placeholder='loremipsum'
+            aria-label='Username'
+            >
           </input>
       </div>
       <div className='password'>
@@ -74,10 +80,14 @@ export default class RegistrationForm extends React.Component {
             type='password'
             required
             id='RegistrationForm__password'
-            placeholder="ultra super incredibly secure password">
+            aria-label='password'
+            placeholder='ultra super incredibly secure password'>
           </input>
         </div>
-        <button type='submit'>
+        <button
+          type='submit'
+          role='button'
+          >
           Register
         </button>
       </form>

@@ -122,6 +122,7 @@ export default class EditPost extends React.Component {
               id='caption'
               name='caption'
               placeholder={this.state.post.caption}
+              aria-label="Image Caption"
               ></textarea>
           </>
         )
@@ -135,6 +136,7 @@ export default class EditPost extends React.Component {
               id='text_title'
               name='text_title'
               placeholder='Headline'
+              aria-label="Text Headline"
               defaultValue={this.state.post.text_title}
             >
           </input>
@@ -143,6 +145,7 @@ export default class EditPost extends React.Component {
             type='text'
             id='text_content'
             name='text_content'
+            aria-label="Text Body"
             placeholder={this.state.post.text_content}
             ></textarea>
           </>
@@ -156,6 +159,7 @@ export default class EditPost extends React.Component {
               type='text'
               id='video'
               name='video'
+              aria-label='Vimeo ID'
               defaultValue={this.state.post.video}
             >
             </input>
@@ -164,6 +168,7 @@ export default class EditPost extends React.Component {
               type='text'
               id='caption'
               name='caption'
+              aria-label="Video Caption"
               placeholder={this.state.post.caption}
               ></textarea>
           </>
@@ -185,6 +190,7 @@ export default class EditPost extends React.Component {
       <form
         className='AddPostForm'
         onSubmit={this.handleSubmit}
+        role="form"
       >
       <div className='form-title'>
         <h2>Edit Post</h2>
@@ -210,12 +216,19 @@ export default class EditPost extends React.Component {
       </div>
       <div className='form-fields'>
         <label htmlFor='title'>Post Title</label>
-        <input type='text' name='title' id='title' placeholder='Post Title' defaultValue={this.state.post.title}></input>
+        <input
+          type='text'
+          name='title'
+          id='title'
+          placeholder='Post Title'
+          defaultValue={this.state.post.title}></input>
         {this.renderFieldTypes()}
       </div>
       <button
         type='submit'
         className='form-submit'
+        role='button'
+        aria-label="Submit Form"
         >Submit</button>
       </form>
     )

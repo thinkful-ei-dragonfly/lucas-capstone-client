@@ -18,7 +18,7 @@ export default class AddPost extends React.Component {
   generateMessage(string) {
     if (this.state.error) {
       return (
-        <p>{string}</p>
+        <p className="errorMessage" aria-label="Error Message" role='alertdialog'>{string}</p>
       )
     }
     return null
@@ -113,6 +113,7 @@ export default class AddPost extends React.Component {
               name='image'
               accept='image/png, image/jpeg'
               multiple={ false }
+              aria-label='Select an image to upload'
               onDone={ this.getFile.bind(this) }
             />
             <label htmlFor='caption'>Image Caption</label>
@@ -121,6 +122,7 @@ export default class AddPost extends React.Component {
               id='caption'
               name='caption'
               placeholder="Enter Image Caption/Description"
+              aria-label="Image caption"
               ></textarea>
           </>
         )
@@ -134,6 +136,7 @@ export default class AddPost extends React.Component {
               id='text_title'
               name='text_title'
               placeholder='Post Headline'
+              aria-label="Post Headline"
             >
           </input>
           <label htmlFor='text_content'>Body</label>
@@ -142,6 +145,7 @@ export default class AddPost extends React.Component {
             id='text_content'
             name='text_content'
             placeholder='Enter Post Body'
+            aria-label="Post body content"
             ></textarea>
           </>
         )
@@ -155,6 +159,7 @@ export default class AddPost extends React.Component {
               id='video'
               name='video'
               placeholder='Enter Vimeo ID'
+              aria-label="Vimeo Id"
             >
             </input>
             <label htmlFor='caption'>Video Caption</label>
@@ -163,6 +168,7 @@ export default class AddPost extends React.Component {
               id='caption'
               name='caption'
               placeholder='Video Caption'
+              aria-label="Video Caption"
               ></textarea>
           </>
         )
@@ -183,6 +189,8 @@ export default class AddPost extends React.Component {
       <form
         className='AddPostForm'
         onSubmit={this.handleSubmit}
+        role='form'
+        aria-label="Create new Post"
       >
       <div className='form-title'>
         <h2 className='form-title-header'>Create New Post</h2>
@@ -205,7 +213,7 @@ export default class AddPost extends React.Component {
         </select>
 
       </div>
-      <div className='form-fields'>
+      <div className='form-fields' aria-label='Post Fields'>
         <label htmlFor='title'>Post Title</label>
         <input type='text' name='title' id='title' placeholder='Enter post title...'></input>
         {this.renderFieldTypes()}

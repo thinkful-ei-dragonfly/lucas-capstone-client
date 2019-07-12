@@ -14,7 +14,7 @@ export default class Header extends React.Component {
 
   renderLogoutLink() {
     return (
-      <div className='logged-in'>
+      <div className='logged-in' role='navigation' aria-label="Authenticated User Actions">
         <Link
           to='/add-post'>
           Add New Post
@@ -31,7 +31,7 @@ export default class Header extends React.Component {
 
   renderLoginLink() {
     return (
-      <div className='logged-out'>
+      <div className='logged-out' role='navigation' aria-label="Header Navigation">
         <Link to='/about'>
           About
         </Link>
@@ -51,7 +51,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <header className="Header">
-        <h1 className="header-h1">
+        <h1 className="header-h1" role='banner' aria-label="App Name">
           <Link to='/'>Colección</Link>
         </h1>
         {TokenService.hasAuthToken()

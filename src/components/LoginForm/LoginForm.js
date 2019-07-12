@@ -33,9 +33,11 @@ export default class LoginForm extends React.Component {
       <form
         className='LoginForm'
         onSubmit={this.handleSubmitJwtAuth}
+        role="form"
+        aria-label="Login Form"
       >
-        <div role='alert'>
-          {error && <p className='red'>{error}</p>}
+        <div role='alert' >
+          {error && <p className='red' role='alertdialog' aria-label="Error Message">{error}</p>}
         </div>
         <div className='user_name'>
           <label htmlFor='LoginForm_user_name'>
@@ -44,6 +46,7 @@ export default class LoginForm extends React.Component {
           <input
             required
             name='user_name'
+            aria-label="user_name field"
             id='LoginForm_user_name'>
           </input>
         </div>
@@ -54,11 +57,15 @@ export default class LoginForm extends React.Component {
           <input
             required
             name='password'
+            aria-label="password field"
             type='password'
             id='LoginForm_password'>
           </input>
         </div>
-        <button type='submit'>
+        <button
+          type='submit'
+          role="button"
+          >
           Login
         </button>
       </form>

@@ -102,8 +102,7 @@ export default class App extends React.Component{
         <Header
           onLogin={this.login}
         />
-        <div className="App">
-          <main className="main-content">
+          <main className="main-content" role="main">
             {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
             <Switch>
               <PublicOnlyRoute
@@ -141,7 +140,6 @@ export default class App extends React.Component{
               />
             </Switch>
           </main>
-        </div>
       </>
     );
   }

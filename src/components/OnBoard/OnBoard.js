@@ -3,11 +3,11 @@ import React from 'react'
 export default class OnBoard extends React.Component {
   render() {
     return (
-      <div className='onboarding-page'>
+      <div className='onboarding-page' role='main'>
         <header className='onboarding-header'>
           <h1 className='onboarding-heading-text'>Welcome to Colección</h1>
         </header>
-        <div className='onboarding-content'>
+        <div className='onboarding-content' role='contentinfo'>
           <h2>Colección is an interactive, multimedia, collage-style blog leveraging ReactJs, Express, jQuery, Node, PostgreSQL, and SASS</h2>
           <p>When a user is authenticated, they can build Text, Image, and Video posts.</p>
           <p>The author is able to rearrange and resize the posts in a collage-style. Those posts and style changes are stored in PostgreSQL database tables.</p>

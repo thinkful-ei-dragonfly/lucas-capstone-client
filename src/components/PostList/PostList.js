@@ -45,7 +45,7 @@ export default class PostList extends React.Component {
 
     return (
 
-      <ul className='postList'>
+      <ul className='postList' role='list' aria-label="Post List">
         {this.state.posts.map(post => {
           const style = this.state.styles.find(style => style.post === post.id)
           const styleString = {

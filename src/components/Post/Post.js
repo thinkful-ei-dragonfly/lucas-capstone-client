@@ -61,11 +61,17 @@ export default class Post extends React.Component {
     if (!TokenService.hasAuthToken()) {
       return
     }
-    const top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
-    const left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
     let width_calculated,
+    top_calculated,
+    left_calculated,
     height_calculated,
     z_index
+    if (e.target.style.top) {
+      top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    }
+    if (e.target.style.left) {
+      left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+    }
     if (e.target.style.width) {
       width_calculated = `${(((e.target.style.width.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
     }
@@ -75,7 +81,6 @@ export default class Post extends React.Component {
     if (e.target.style['z-index']) {
       z_index = e.target.style['z-index']
     }
-
 
     const updatedPost = {
       post: e.target.id,
@@ -174,13 +179,17 @@ export default class Post extends React.Component {
 
     }
     return (
-      <div className='post-container' onClick={this.showCaption}>
+      <article
+        className='post-container'
+        onClick={this.showCaption}
+        role='listitem'
+      >
       {editlink}
       {this.state.expanded
         ? captionPopup
         : ''}
       {renderedPost}
-    </div>
+    </article>
     )
 
   }
