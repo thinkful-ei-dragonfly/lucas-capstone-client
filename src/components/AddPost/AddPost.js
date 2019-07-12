@@ -27,7 +27,7 @@ export default class AddPost extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault()
     ev.persist()
-    const { post_type, title, text_title, text_content, caption, video, audio} = ev.target
+    const { post_type, title, text_title, text_content, caption, video} = ev.target
     let newPost = {
       type: this.state.post_type,
       title: title.value
@@ -45,11 +45,9 @@ export default class AddPost extends React.Component {
         newPost.video = video.value
         newPost.caption = caption.value
         break
-      case 'Audio':
-        newPost.audio = audio.value
-        newPost.caption = caption.value
-        break;
       default:
+        newPost.text_title = text_title.value
+        newPost.text_content = text_content.value
     }
 
     PostApiService.addPost(newPost)
@@ -81,11 +79,6 @@ export default class AddPost extends React.Component {
           case 'Video':
             title.value = ''
             video.value = ''
-            break;
-          case 'Audio':
-            title.value = ''
-            audio.value = ''
-            caption.value = ''
             break;
           default:
         }
@@ -173,25 +166,6 @@ export default class AddPost extends React.Component {
               ></textarea>
           </>
         )
-        break;
-      case 'Audio':
-      fields = (
-        <>
-          <label htmlFor='audio'>Insert Audio File Location</label>
-
-          <input
-            id='audio'
-            name='audio'
-            accept='image/png, image/jpeg'
-          />
-          <label htmlFor='caption'>Audio Caption</label>
-          <textarea
-            type='text'
-            id='caption'
-            name='caption'
-            ></textarea>
-        </>
-      )
         break;
       default:
 
