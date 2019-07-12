@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.scss';
-
 import { Route, Switch } from 'react-router-dom'
 import PostList from '../PostList/PostList'
 import Header from '../Header/Header'

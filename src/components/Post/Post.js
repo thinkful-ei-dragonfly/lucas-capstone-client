@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PostContext from '../../PostContext/PostContext'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 

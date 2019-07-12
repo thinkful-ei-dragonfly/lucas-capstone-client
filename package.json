@@ -14,9 +14,6 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
-  "jest": {
-    "setupFiles": ["./src/setup-jest.js"] 
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
