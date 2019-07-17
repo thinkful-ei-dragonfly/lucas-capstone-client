@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 
-import jQuery from 'jquery'
+import * as $ from 'jquery';
 import 'jquery-ui';
+
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widget';
 import 'jquery-ui/ui/widgets/mouse';
+// import 'jquery-ui-touch-punch-touch_fix'
+(window).jQuery = $;
+require('jquery-ui-touch-punch-touch_fix');
 // import 'jquery-ui-touch-punch'
 
 
@@ -27,18 +31,18 @@ export default class Post extends React.Component {
   }
 
   componentDidMount = () => {
-    jQuery('.draggable').draggable({
+    $('.draggable').draggable({
       stack: ".draggable",
       stop: (e) => {
         this.updateStyle(e)
       }
     });
-    jQuery('.Text-post').resizable({
+    $('.Text-post').resizable({
      stop: (e) => {
        this.updateStyle(e)
      }
    })
-    jQuery('.Image-post, .Video-post').resizable({
+    $('.Image-post, .Video-post').resizable({
      aspectRatio: true,
      stop: (e) => {
        this.updateStyle(e)
