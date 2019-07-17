@@ -12,13 +12,10 @@ import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widget';
 import 'jquery-ui/ui/widgets/mouse';
-// import 'jquery-ui-touch-punch-touch_fix'
+
 (window).jQuery = $;
 require('jquery-ui-touch-punch-touch_fix');
-// import 'jquery-ui-touch-punch'
 
-
-// import '../../touchpunch'
 
 export default class Post extends React.Component {
 
