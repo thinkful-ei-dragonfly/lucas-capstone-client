@@ -60,6 +60,7 @@ export default class PostList extends React.Component {
               type={post.post_type}
               onDelete={this.deletePost}
               post={post}
+              style={this.state.styles.find(style => style.post === post.id)}
             />
           </div>
         })}

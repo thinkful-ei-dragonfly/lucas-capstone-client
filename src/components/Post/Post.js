@@ -12,6 +12,7 @@ import jQuery from 'jquery'
 export default class Post extends React.Component {
   state = {
     post: this.props.post,
+    style: this.props.style,
     type: this.props.post.type,
     video_id: `https://player.vimeo.com/video/${this.props.post.video}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=false&amp;transparent=0&amp;gesture=media`,
     expanded: false
@@ -64,32 +65,49 @@ export default class Post extends React.Component {
     left_calculated,
     height_calculated,
     z_index
-    if (e.target.style.top !== false) {
-      if (e.target.style.top.includes('%')) {
-          top_calculated = `${(((e.target.style.top.split('%')[0]) / window.innerHeight) * 100).toFixed(2)}%`
-      } else if (e.target.style.top.includes('px')) {
-        top_calculated = `${(((e.target.style.top.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    if (e.target.style.top !== this.state.style.top_style) {
+      for (const key of ['%', 'px']) {
+        if (e.target.style.top.includes(key)) {
+
+          top_calculated = `${(((e.target.style.top.split(key)[0]) / window.innerHeight) * 100).toFixed(2)}%`
+            if (top_calculated === undefined) {
+              top_calculated = this.state.style.top_style
+            }
+        }
       }
     }
-    if (e.target.style.left !== false) {
-      if (e.target.style.left.includes('%')) {
-          left_calculated = `${(((e.target.style.left.split('%')[0]) / window.innerWidth) * 100).toFixed(2)}%`
-      } else if (e.target.style.left.includes('px')) {
-        left_calculated = `${(((e.target.style.left.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
+    if (e.target.style.left !== this.state.style.left_style) {
+      for (const key of ['%', 'px']) {
+        if (e.target.style.left.includes(key)) {
+
+          left_calculated = `${(((e.target.style.left.split(key)[0]) / window.innerWidth) * 100).toFixed(2)}%`
+            if (left_calculated === undefined) {
+              left_calculated = this.state.style.left_style
+            }
+        }
+      }
+
+    }
+    if (e.target.style.width !== this.state.style.width_style) {
+      for (const key of ['%', 'px']) {
+        if (e.target.style.width.includes(key)) {
+
+          width_calculated = `${(((e.target.style.width.split(key)[0]) / window.innerWidth) * 100).toFixed(2)}%`
+            if (width_calculated === undefined) {
+              width_calculated = this.state.style.width_style
+            }
+        }
       }
     }
-    if (e.target.style.width !== false) {
-      if (e.target.style.width.includes('%')) {
-          width_calculated = `${(((e.target.style.width.split('%')[0]) / window.innerWidth) * 100).toFixed(2)}%`
-      } else if (e.target.style.width.includes('px')) {
-        width_calculated = `${(((e.target.style.width.split('px')[0]) / window.innerWidth) * 100).toFixed(2)}%`
-      }
-    }
-    if (e.target.style.height !== false) {
-      if (e.target.style.height.includes('%')) {
-          height_calculated = `${(((e.target.style.height.split('%')[0]) / window.innerHeight) * 100).toFixed(2)}%`
-      } else if (e.target.style.height.includes('px')) {
-        height_calculated = `${(((e.target.style.height.split('px')[0]) / window.innerHeight) * 100).toFixed(2)}%`
+    if ((e.target.style.height !== this.state.style.height_style) && this.state.type === 'Text'){
+      for (const key of ['%', 'px']) {
+        if (e.target.style.height.includes(key)) {
+
+          height_calculated = `${(((e.target.style.height.split(key)[0]) / window.innerHeight) * 100).toFixed(2)}%`
+            if (height_calculated === undefined) {
+              height_calculated = this.state.style.height_style
+            }
+        }
       }
     }
     if (e.target.style['z-index']) {

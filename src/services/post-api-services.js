@@ -23,11 +23,11 @@ const PostApiService = {
       body: JSON.stringify(post)
     })
     .then(res => {
-      if (!res.ok) {
-        res.json().then(e => Promise.reject(e))
-      }
-      return res.json()
-    })
+     if (!res.ok) {
+       return res.json().then(e => Promise.reject(e)) //Notice the return
+     }
+     return res.json()
+   })
   },
   updatePost(post) {
     const { id } = post
