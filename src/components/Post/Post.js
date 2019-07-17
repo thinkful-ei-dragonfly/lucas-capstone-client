@@ -3,13 +3,21 @@ import { Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 
-
+import jQuery from 'jquery'
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/resizable';
-import jQuery from 'jquery'
+import 'jquery-ui/ui/widgets/resizable';
+import 'jquery-ui/ui/core';
+import 'jquery-ui/ui/widget';
+import 'jquery-ui/ui/widgets/mouse';
+// import 'jquery-ui-touch-punch'
+
+
+// import '../../touchpunch'
 
 export default class Post extends React.Component {
+
   state = {
     post: this.props.post,
     style: this.props.style,
