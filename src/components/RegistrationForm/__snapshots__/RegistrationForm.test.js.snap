@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegistrationForm component renders a Component by default 1`] = `
+<form
+  aria-label="Registration Form"
+  className="RegistrationForm"
+  onSubmit={[Function]}
+>
+  <div
+    role="alert"
+  />
+  <div
+    className="full_name"
+  >
+    <label
+      htmlFor="RegistrationForm__full_name"
+    >
+      Full name
+    </label>
+    <input
+      aria-label="Full Name"
+      id="RegistrationForm__full_name"
+      name="full_name"
+      placeholder="Lorem Ipsum"
+      required={true}
+      type="text"
+    />
+  </div>
+  <div
+    className="user_name"
+  >
+    <label
+      htmlFor="RegistrationForm__user_name"
+    >
+      User name
+    </label>
+    <input
+      aria-label="Username"
+      id="RegistrationForm__user_name"
+      name="user_name"
+      placeholder="loremipsum"
+      required={true}
+      type="text"
+    />
+  </div>
+  <div
+    className="password"
+  >
+    <label
+      htmlFor="RegistrationForm__password"
+    >
+      Password
+    </label>
+    <input
+      aria-label="password"
+      id="RegistrationForm__password"
+      name="password"
+      placeholder="ultra super incredibly secure password"
+      required={true}
+      type="password"
+    />
+  </div>
+  <button
+    type="submit"
+  >
+    Register
+  </button>
+</form>
+`;
+
+exports[`RegistrationForm component renders a form 1`] = `
+<form
+  aria-label="Registration Form"
+  className="RegistrationForm"
+  onSubmit={[Function]}
+>
+  <div
+    role="alert"
+  />
+  <div
+    className="full_name"
+  >
+    <label
+      htmlFor="RegistrationForm__full_name"
+    >
+      Full name
+    </label>
+    <input
+      aria-label="Full Name"
+      id="RegistrationForm__full_name"
+      name="full_name"
+      placeholder="Lorem Ipsum"
+      required={true}
+      type="text"
+    />
+  </div>
+  <div
+    className="user_name"
+  >
+    <label
+      htmlFor="RegistrationForm__user_name"
+    >
+      User name
+    </label>
+    <input
+      aria-label="Username"
+      id="RegistrationForm__user_name"
+      name="user_name"
+      placeholder="loremipsum"
+      required={true}
+      type="text"
+    />
+  </div>
+  <div
+    className="password"
+  >
+    <label
+      htmlFor="RegistrationForm__password"
+    >
+      Password
+    </label>
+    <input
+      aria-label="password"
+      id="RegistrationForm__password"
+      name="password"
+      placeholder="ultra super incredibly secure password"
+      required={true}
+      type="password"
+    />
+  </div>
+  <button
+    type="submit"
+  >
+    Register
+  </button>
+</form>
+`;
+
+exports[`RegistrationForm component renders a full_name label in the form 1`] = `
+<div
+  className="full_name"
+>
+  <label
+    htmlFor="RegistrationForm__full_name"
+  >
+    Full name
+  </label>
+  <input
+    aria-label="Full Name"
+    id="RegistrationForm__full_name"
+    name="full_name"
+    placeholder="Lorem Ipsum"
+    required={true}
+    type="text"
+  />
+</div>
+`;
+
+exports[`RegistrationForm component renders a password label in the form 1`] = `
+<div
+  className="password"
+>
+  <label
+    htmlFor="RegistrationForm__password"
+  >
+    Password
+  </label>
+  <input
+    aria-label="password"
+    id="RegistrationForm__password"
+    name="password"
+    placeholder="ultra super incredibly secure password"
+    required={true}
+    type="password"
+  />
+</div>
+`;
+
+exports[`RegistrationForm component renders a user_name label in the form 1`] = `
+<div
+  className="user_name"
+>
+  <label
+    htmlFor="RegistrationForm__user_name"
+  >
+    User name
+  </label>
+  <input
+    aria-label="Username"
+    id="RegistrationForm__user_name"
+    name="user_name"
+    placeholder="loremipsum"
+    required={true}
+    type="text"
+  />
+</div>
+`;

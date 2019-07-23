@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders a Header by default 1`] = `
+<header
+  className="Header"
+>
+  <h1
+    aria-label="App Name"
+    className="header-h1"
+    role="banner"
+  >
+    <Link
+      to="/"
+    >
+      Colección
+    </Link>
+  </h1>
+  <div
+    aria-label="Header Navigation"
+    className="logged-out"
+    role="navigation"
+  >
+    <Link
+      to="/about"
+    >
+      About
+    </Link>
+    <Link
+      to="/login"
+    >
+      Log in
+    </Link>
+    <Link
+      to="/register"
+    >
+      Register
+    </Link>
+  </div>
+</header>
+`;
+
+exports[`Header component renders a h1 with app name 1`] = `
+<h1
+  aria-label="App Name"
+  className="header-h1"
+  role="banner"
+>
+  <Link
+    to="/"
+  >
+    Colección
+  </Link>
+</h1>
+`;

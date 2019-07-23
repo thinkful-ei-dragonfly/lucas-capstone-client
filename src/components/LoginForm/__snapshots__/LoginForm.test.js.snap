@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm component renders a LoginForm by default 1`] = `
+<form
+  aria-label="Login Form"
+  className="LoginForm"
+  onSubmit={[Function]}
+>
+  <div
+    role="alert"
+  />
+  <div
+    className="user_name"
+  >
+    <label
+      htmlFor="LoginForm_user_name"
+    >
+      User name
+    </label>
+    <input
+      aria-label="user_name field"
+      id="LoginForm_user_name"
+      name="user_name"
+      required={true}
+    />
+  </div>
+  <div
+    className="password"
+  >
+    <label
+      htmlFor="LoginForm_password"
+    >
+      Password
+    </label>
+    <input
+      aria-label="password field"
+      id="LoginForm_password"
+      name="password"
+      required={true}
+      type="password"
+    />
+  </div>
+  <button
+    type="submit"
+  >
+    Login
+  </button>
+</form>
+`;
+
+exports[`LoginForm component renders a form 1`] = `
+<form
+  aria-label="Login Form"
+  className="LoginForm"
+  onSubmit={[Function]}
+>
+  <div
+    role="alert"
+  />
+  <div
+    className="user_name"
+  >
+    <label
+      htmlFor="LoginForm_user_name"
+    >
+      User name
+    </label>
+    <input
+      aria-label="user_name field"
+      id="LoginForm_user_name"
+      name="user_name"
+      required={true}
+    />
+  </div>
+  <div
+    className="password"
+  >
+    <label
+      htmlFor="LoginForm_password"
+    >
+      Password
+    </label>
+    <input
+      aria-label="password field"
+      id="LoginForm_password"
+      name="password"
+      required={true}
+      type="password"
+    />
+  </div>
+  <button
+    type="submit"
+  >
+    Login
+  </button>
+</form>
+`;
+
+exports[`LoginForm component renders a password label in the form 1`] = `
+<div
+  className="password"
+>
+  <label
+    htmlFor="LoginForm_password"
+  >
+    Password
+  </label>
+  <input
+    aria-label="password field"
+    id="LoginForm_password"
+    name="password"
+    required={true}
+    type="password"
+  />
+</div>
+`;
+
+exports[`LoginForm component renders a user_name label in the form 1`] = `
+<div
+  className="user_name"
+>
+  <label
+    htmlFor="LoginForm_user_name"
+  >
+    User name
+  </label>
+  <input
+    aria-label="user_name field"
+    id="LoginForm_user_name"
+    name="user_name"
+    required={true}
+  />
+</div>
+`;

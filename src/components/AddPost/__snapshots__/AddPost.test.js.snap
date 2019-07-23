@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddPostForm component renders a "post_type" dropdown menu 1`] = `
+<select
+  aria-label="Select your post type"
+  id="post_type"
+  name="post_type"
+  onChange={[Function]}
+  required={true}
+>
+  <option
+    value="Text"
+  >
+    Text
+  </option>
+  <option
+    value="Image"
+  >
+    Image
+  </option>
+  <option
+    value="Video"
+  >
+    Video
+  </option>
+</select>
+`;
+
+exports[`AddPostForm component renders a AddPost by default 1`] = `
+<form
+  aria-label="Create new Post"
+  className="AddPostForm"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-title"
+  >
+    <h2
+      className="form-title-header"
+    >
+      Create New Post
+    </h2>
+  </div>
+  <div
+    className="message"
+  />
+  <div
+    className="select"
+  >
+    <label
+      htmlFor="post_type"
+    >
+      Post Type
+    </label>
+    <select
+      aria-label="Select your post type"
+      id="post_type"
+      name="post_type"
+      onChange={[Function]}
+      required={true}
+    >
+      <option
+        value="Text"
+      >
+        Text
+      </option>
+      <option
+        value="Image"
+      >
+        Image
+      </option>
+      <option
+        value="Video"
+      >
+        Video
+      </option>
+    </select>
+  </div>
+  <div
+    aria-label="Post Fields"
+    className="form-fields"
+  >
+    <label
+      htmlFor="title"
+    >
+      Post Title
+    </label>
+    <input
+      id="title"
+      name="title"
+      placeholder="Enter post title..."
+      type="text"
+    />
+    <div
+      className="add-post-fields"
+    >
+      <label
+        htmlFor="text_title"
+      >
+        Headline
+      </label>
+      <input
+        aria-label="Post Headline"
+        id="text_title"
+        name="text_title"
+        placeholder="Post Headline"
+        type="text"
+      />
+      <label
+        htmlFor="text_content"
+      >
+        Body
+      </label>
+      <textarea
+        aria-label="Post body content"
+        id="text_content"
+        name="text_content"
+        placeholder="Enter Post Body"
+        type="text"
+      />
+    </div>
+  </div>
+  <button
+    className="form-submit"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`AddPostForm component renders a form 1`] = `
+<form
+  aria-label="Create new Post"
+  className="AddPostForm"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-title"
+  >
+    <h2
+      className="form-title-header"
+    >
+      Create New Post
+    </h2>
+  </div>
+  <div
+    className="message"
+  />
+  <div
+    className="select"
+  >
+    <label
+      htmlFor="post_type"
+    >
+      Post Type
+    </label>
+    <select
+      aria-label="Select your post type"
+      id="post_type"
+      name="post_type"
+      onChange={[Function]}
+      required={true}
+    >
+      <option
+        value="Text"
+      >
+        Text
+      </option>
+      <option
+        value="Image"
+      >
+        Image
+      </option>
+      <option
+        value="Video"
+      >
+        Video
+      </option>
+    </select>
+  </div>
+  <div
+    aria-label="Post Fields"
+    className="form-fields"
+  >
+    <label
+      htmlFor="title"
+    >
+      Post Title
+    </label>
+    <input
+      id="title"
+      name="title"
+      placeholder="Enter post title..."
+      type="text"
+    />
+    <div
+      className="add-post-fields"
+    >
+      <label
+        htmlFor="text_title"
+      >
+        Headline
+      </label>
+      <input
+        aria-label="Post Headline"
+        id="text_title"
+        name="text_title"
+        placeholder="Post Headline"
+        type="text"
+      />
+      <label
+        htmlFor="text_content"
+      >
+        Body
+      </label>
+      <textarea
+        aria-label="Post body content"
+        id="text_content"
+        name="text_content"
+        placeholder="Enter Post Body"
+        type="text"
+      />
+    </div>
+  </div>
+  <button
+    className="form-submit"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;
+
+exports[`AddPostForm component renders a form-title label in the form 1`] = `
+<div
+  className="form-title"
+>
+  <h2
+    className="form-title-header"
+  >
+    Create New Post
+  </h2>
+</div>
+`;
+
+exports[`AddPostForm component renders a select label in the form 1`] = `
+<div
+  className="select"
+>
+  <label
+    htmlFor="post_type"
+  >
+    Post Type
+  </label>
+  <select
+    aria-label="Select your post type"
+    id="post_type"
+    name="post_type"
+    onChange={[Function]}
+    required={true}
+  >
+    <option
+      value="Text"
+    >
+      Text
+    </option>
+    <option
+      value="Image"
+    >
+      Image
+    </option>
+    <option
+      value="Video"
+    >
+      Video
+    </option>
+  </select>
+</div>
+`;
+
+exports[`AddPostForm component renders form fields 1`] = `
+<div
+  aria-label="Post Fields"
+  className="form-fields"
+>
+  <label
+    htmlFor="title"
+  >
+    Post Title
+  </label>
+  <input
+    id="title"
+    name="title"
+    placeholder="Enter post title..."
+    type="text"
+  />
+  <div
+    className="add-post-fields"
+  >
+    <label
+      htmlFor="text_title"
+    >
+      Headline
+    </label>
+    <input
+      aria-label="Post Headline"
+      id="text_title"
+      name="text_title"
+      placeholder="Post Headline"
+      type="text"
+    />
+    <label
+      htmlFor="text_content"
+    >
+      Body
+    </label>
+    <textarea
+      aria-label="Post body content"
+      id="text_content"
+      name="text_content"
+      placeholder="Enter Post Body"
+      type="text"
+    />
+  </div>
+</div>
+`;

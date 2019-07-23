@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post component renders a Post by default 1`] = `
+<Rnd
+  bounds="window"
+  default={
+    Object {
+      "height": 300,
+      "width": 200,
+      "x": 10,
+      "y": 10,
+    }
+  }
+  lockAspectRatio={false}
+  maxHeight={9007199254740991}
+  maxWidth={9007199254740991}
+  onDrag={[Function]}
+  onDragStart={[Function]}
+  onDragStop={[Function]}
+  onResize={[Function]}
+  onResizeStart={[Function]}
+  onResizeStop={[Function]}
+  role="listitem"
+  scale={1}
+>
+  <h2
+    className="text-post-h2"
+  />
+  <h3
+    className="text-post-title"
+  />
+  <p
+    className="text-post-p"
+  />
+</Rnd>
+`;
+
+exports[`Post component renders the post Type as a class 1`] = `null`;
