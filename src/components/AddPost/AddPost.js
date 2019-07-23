@@ -59,6 +59,7 @@ export default class AddPost extends React.Component {
           this.generateMessage(res.error)
         }
         this.generateMessage('Your message was successfully created')
+        debugger;
         PostApiService.postStyle({
           post: res.id
         })
@@ -84,7 +85,7 @@ export default class AddPost extends React.Component {
         }
         setTimeout(() => {
           this.successfulSubmission()
-        }, 500)
+        }, 1500)
 
       })
   }

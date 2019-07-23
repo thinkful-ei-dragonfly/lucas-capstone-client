@@ -1,23 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Rnd } from 'react-rnd'
+
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 
-import * as $ from 'jquery';
-import 'jquery-ui';
-
-import 'jquery-ui/ui/widgets/draggable';
-import 'jquery-ui/ui/widgets/resizable';
-import 'jquery-ui/ui/widgets/resizable';
-import 'jquery-ui/ui/core';
-import 'jquery-ui/ui/widget';
-import 'jquery-ui/ui/widgets/mouse';
-
-(window).jQuery = $;
-require('jquery-ui-touch-punch-touch_fix');
-
-
 export default class Post extends React.Component {
+  constructor(props) {
+    super(props)
+    this.myRef = React.createRef()
+  }
 
   state = {
     post: this.props.post,
@@ -28,110 +20,11 @@ export default class Post extends React.Component {
   }
 
   componentDidMount = () => {
-    $('.draggable').draggable({
-      stack: ".draggable",
-      stop: (e) => {
-        this.updateStyle(e)
-      }
-    });
-    $('.Text-post').resizable({
-     stop: (e) => {
-       this.updateStyle(e)
-     }
-   })
-    $('.Image-post, .Video-post').resizable({
-     aspectRatio: true,
-     stop: (e) => {
-       this.updateStyle(e)
-     }
-   })
-   setTimeout(() => {
-     let targetNode = document.getElementById(`${this.props.post.id}`)
-     let config = {
-       attributes: true,
-       childList: true,
-       subtree: false
-     }
-     let callback =  (mutationsList, observer) => {
-       for(let mutation of mutationsList) {
-         if (mutation.attributeName === 'style') {
-           this.updateStyle(mutation)
-         }
-       }
-     }
-     let observer = new MutationObserver(callback)
 
-     observer.observe(targetNode, config)
-   }, 1000)
   }
 
   updateStyle = (e) => {
-    if (!TokenService.hasAuthToken()) {
-      return
-    }
-    let width_calculated,
-    top_calculated,
-    left_calculated,
-    height_calculated,
-    z_index
-    if (e.target.style.top !== this.state.style.top_style) {
-      for (const key of ['%', 'px']) {
-        if (e.target.style.top.includes(key)) {
 
-          top_calculated = `${(((e.target.style.top.split(key)[0]) / window.innerHeight) * 100).toFixed(2)}%`
-            if (top_calculated === undefined) {
-              top_calculated = this.state.style.top_style
-            }
-        }
-      }
-    }
-    if (e.target.style.left !== this.state.style.left_style) {
-      for (const key of ['%', 'px']) {
-        if (e.target.style.left.includes(key)) {
-
-          left_calculated = `${(((e.target.style.left.split(key)[0]) / window.innerWidth) * 100).toFixed(2)}%`
-            if (left_calculated === undefined) {
-              left_calculated = this.state.style.left_style
-            }
-        }
-      }
-
-    }
-    if (e.target.style.width !== this.state.style.width_style) {
-      for (const key of ['%', 'px']) {
-        if (e.target.style.width.includes(key)) {
-
-          width_calculated = `${(((e.target.style.width.split(key)[0]) / window.innerWidth) * 100).toFixed(2)}%`
-            if (width_calculated === undefined) {
-              width_calculated = this.state.style.width_style
-            }
-        }
-      }
-    }
-    if ((e.target.style.height !== this.state.style.height_style) && this.state.type === 'Text'){
-      for (const key of ['%', 'px']) {
-        if (e.target.style.height.includes(key)) {
-
-          height_calculated = `${(((e.target.style.height.split(key)[0]) / window.innerHeight) * 100).toFixed(2)}%`
-            if (height_calculated === undefined) {
-              height_calculated = this.state.style.height_style
-            }
-        }
-      }
-    }
-    if (e.target.style['z-index']) {
-      z_index = e.target.style['z-index']
-    }
-
-    const updatedPost = {
-      post: e.target.id,
-      top_style: top_calculated,
-      left_style: left_calculated,
-      width_style: width_calculated,
-      height_style: height_calculated,
-      z_index
-    }
-    PostApiService.saveStyle(updatedPost)
   }
   showCaption = (e) => {
     this.setState({
@@ -183,28 +76,18 @@ export default class Post extends React.Component {
 
       case 'Text':
         renderedPost = (
-          <div className='text-post-content'>
+          <>
             <h2 className='text-post-h2'>{this.props.post.title}</h2>
             <h3 className='text-post-title'>{this.props.post.text_title}</h3>
             <p className='text-post-p'>{this.props.post.text_content}</p>
-          </div>
+          </>
         )
         break;
       case 'Image':
         renderedPost = (
-          <div className='image-post-content'>
+          <>
             <img src={this.props.post.image} alt={this.props.post.title} />
-          </div>
-        )
-        break;
-      case 'Audio':
-        renderedPost = (
-          <div className='audio-post-content'>
-          <div className="audio-post-controls">
-            <p className='audio-post-title'>{this.props.post.title}</p>
-          </div>
-            <audio id="audioPlayer" src={this.props.post.audio_url} autoPlay={false} preload="" contentEditable="true"></audio>
-          </div>
+          </>
         )
         break;
       case 'Video':
@@ -220,17 +103,69 @@ export default class Post extends React.Component {
 
     }
     return (
-      <article
-        className='post-container'
-        onClick={this.showCaption}
+
+      <Rnd
+        className={this.props.className}
+        ref={this.myRef}
         role='listitem'
+        lockAspectRatio={this.state.type === ('Image') || this.state.type === ('Video')}
+        bounds={'window'}
+        default={{
+          x: parseInt(this.state.style.left_style),
+          y: parseInt(this.state.style.top_style),
+          width: parseInt(this.state.style.width_style),
+          height: parseInt(this.state.style.height_style),
+        }}
+        onDragStop={
+          (e, node) => {
+            if (!TokenService.hasAuthToken()) {
+              return
+            }
+            let leftComponent = node.x
+            let topComponent = node.y
+            let heightComponent = this.myRef.current.getSelfElement().offsetHeight
+            let widthComponent = this.myRef.current.getSelfElement().offsetWidth
+
+            const updatedPost = {
+              post: this.state.post.id,
+              top_style: topComponent,
+              left_style: leftComponent,
+              width_style: widthComponent,
+              height_style: heightComponent
+            }
+
+            PostApiService.saveStyle(updatedPost)
+
+          }
+        }
+        onResizeStop={
+          (e, dir, refToElement, node) => {
+            if (!TokenService.hasAuthToken()) {
+              return
+            }
+            let leftComponent = e.clientX
+            let topComponent = e.clientY
+            let heightComponent = this.myRef.current.getSelfElement().offsetHeight
+            let widthComponent = this.myRef.current.getSelfElement().offsetWidth
+
+            const updatedPost = {
+              post: this.state.post.id,
+              top_style: topComponent,
+              left_style: leftComponent,
+              width_style: widthComponent,
+              height_style: heightComponent
+            }
+            PostApiService.saveStyle(updatedPost)
+
+          }
+        }
       >
       {editlink}
       {this.state.expanded
         ? captionPopup
         : ''}
       {renderedPost}
-    </article>
+    </Rnd>
     )
 
   }

@@ -28,7 +28,6 @@ export default class App extends React.Component{
   }
 
   componentDidMount() {
-
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -113,7 +112,7 @@ export default class App extends React.Component{
                 path={'/register'}
                 component={RegistrationPage}
               />
-              <PublicOnlyRoute
+            <Route
                 path={'/about'}
                 component={OnBoard}
               />

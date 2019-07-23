@@ -15,6 +15,9 @@ export default class Header extends React.Component {
   renderLogoutLink() {
     return (
       <div className='logged-in' role='navigation' aria-label="Authenticated User Actions">
+        <Link to='/about'>
+          About
+        </Link>
         <Link
           to='/add-post'>
           Add New Post

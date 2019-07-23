@@ -1,6 +1,5 @@
 import React from 'react'
 import Post from '../Post/Post'
-
 import config from '../../config'
 
 
@@ -48,26 +47,16 @@ export default class PostList extends React.Component {
       <ul className='postList'  aria-label="Post List">
         {this.state.posts.map(post => {
           const style = this.state.styles.find(style => style.post === post.id)
-          let height = style.height_style
-          if (post.type === 'Image' || post.type === 'Video') {
-            height = ''
-          }
 
-          const styleString = {
-            left: `${style.left_style}`,
-            top: `${style.top_style}`,
-            width: `${style.width_style}`,
-            height,
-            zIndex: `${parseInt(style.z_index)}`
-          }
-          return <div className={`${post.type}-post post draggable`} key={post.id} id={post.id} style={styleString} >
-            <Post
-              type={post.post_type}
-              onDelete={this.deletePost}
-              post={post}
-              style={this.state.styles.find(style => style.post === post.id)}
-            />
-          </div>
+          return <Post
+                      className={`${post.type}-post post draggable`}
+                      key={post.id}
+                      id={post.id}
+                      type={post.post_type}
+                      onDelete={this.deletePost}
+                      post={post}
+                      style={style}
+                    />
         })}
       </ul>
 
