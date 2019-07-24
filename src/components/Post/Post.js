@@ -16,16 +16,10 @@ export default class Post extends React.Component {
     style: this.props.style,
     type: this.props.post.type,
     video_id: `https://player.vimeo.com/video/${this.props.post.video}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=false&amp;transparent=0&amp;gesture=media`,
-    expanded: false
+    expanded: false,
+    deleteConfirmation: false
   }
 
-  componentDidMount = () => {
-
-  }
-
-  updateStyle = (e) => {
-
-  }
   showCaption = (e) => {
     this.setState({
       expanded: !this.state.expanded
@@ -34,22 +28,42 @@ export default class Post extends React.Component {
 
   deletePost = (e) => {
     e.preventDefault()
-    PostApiService.deleteStyle(this.props.post.id)
-    .then(res => {
-        PostApiService.deletePost(this.props.post.id)
-        .then(response => {
-          this.props.onDelete(this.props.post.id)
-        })
-    })
+    let answer = window.confirm('Are you sure you want to delete?')
+    if (answer) {
+      debugger;
+      PostApiService.deleteStyle(this.props.post.id)
+      .then(res => {
+          PostApiService.deletePost(this.props.post.id)
+          .then(response => {
+            this.props.onDelete(this.props.post.id)
+          })
+      })
+    } else {
+      return
+    }
+
   }
+
   render () {
     let renderedPost = ''
     let editlink = ''
     let captionPopup = ''
+    let deleteConfirmation = ''
     if (this.props.post.caption) {
       captionPopup = (
         <div className='caption-popup'>
           <p className='caption'>{this.props.post.caption}</p>
+        </div>
+      )
+    }
+    if (this.state.deleteConfirmation) {
+      deleteConfirmation = (
+        <div className='deleteConfirmation'>
+          <p>Are you sure you want to delete?</p>
+          <button onClick={this.setState({
+              deleteConfirmation: false
+            })}>Cancel</button>
+          <button onClick={this.deletePost}>Confirm</button>
         </div>
       )
     }
@@ -102,20 +116,21 @@ export default class Post extends React.Component {
       default:
 
     }
+
     return (
 
       <Rnd
         className={this.props.className}
         ref={this.myRef}
         role='listitem'
-        lockAspectRatio={this.state.type === ('Image') || this.state.type === ('Video')}
+        lockAspectRatio={this.state.type === 'Image' || this.state.type === 'Video'}
         bounds={'window'}
         default={{
           x: parseInt(this.state.style.left_style),
           y: parseInt(this.state.style.top_style),
-          width: parseInt(this.state.style.width_style),
-          height: parseInt(this.state.style.height_style),
+          width: parseInt(this.state.style.width_style)
         }}
+        onClick={this.showCaption}
         onDragStop={
           (e, node) => {
             if (!TokenService.hasAuthToken()) {
@@ -161,6 +176,9 @@ export default class Post extends React.Component {
         }
       >
       {editlink}
+      {this.state.deleteConfirmation
+        ? deleteConfirmation
+        : ''}
       {this.state.expanded
         ? captionPopup
         : ''}

@@ -7,7 +7,8 @@ export default class AddPost extends React.Component {
   state = {
     post: {},
     uploadedFile: null,
-    post_type: 'Text'
+    post_type: 'Text',
+    error: null
   }
 
   successfulSubmission = () => {
@@ -18,7 +19,7 @@ export default class AddPost extends React.Component {
   generateMessage(string) {
     if (this.state.error) {
       return (
-        <p className="errorMessage" aria-label="Error Message" role='alertdialog'>{string}</p>
+        <p className="errorMessage red" aria-label="Error Message" role='alertdialog'>{this.state.error}</p>
       )
     }
     return null
@@ -52,20 +53,15 @@ export default class AddPost extends React.Component {
 
     PostApiService.addPost(newPost)
       .then(res => {
-        if (!res.ok) {
+        if (!res.ok || res.status(400)) {
           this.setState({
             error: res.error
           })
-          this.generateMessage(res.error)
         }
-        this.generateMessage('Your message was successfully created')
-        debugger;
+
         PostApiService.postStyle({
           post: res.id
         })
-          .then(res => {
-            console.log(res)
-          })
 
         switch (this.state.post_type) {
           case 'Text':
@@ -87,6 +83,11 @@ export default class AddPost extends React.Component {
           this.successfulSubmission()
         }, 1500)
 
+      })
+      .catch(res => {
+        this.setState({
+          error: res.error.message
+        })
       })
   }
 

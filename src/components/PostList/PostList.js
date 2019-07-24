@@ -31,7 +31,8 @@ export default class PostList extends React.Component {
       })
   }
   deletePost = (post) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
+
+    if (post) {
       this.setState({
         posts: this.state.posts.filter(obj => obj.id !== post)
       })

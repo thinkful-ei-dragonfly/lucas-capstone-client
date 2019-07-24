@@ -1,3 +1,10 @@
+// Misc typography
+.red {
+  border-bottom: 1px solid #111;
+  color: red;
+  padding: 1em 10px;
+  margin: 0;
+}
 // Header
 .Header {
   display: flex;
@@ -235,12 +242,6 @@ h3 {
     border-bottom: 1px solid;
     text-align: center;
     padding: 0.25em 0;
-    margin: 0;
-  }
-  .red {
-    border-bottom: 1px solid #111;
-    color: red;
-    padding: 1em 10px;
     margin: 0;
   }
   .user_name,
