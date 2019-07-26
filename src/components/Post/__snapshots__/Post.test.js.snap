@@ -5,7 +5,6 @@ exports[`Post component renders a Post by default 1`] = `
   bounds="window"
   default={
     Object {
-      "height": 300,
       "width": 200,
       "x": 10,
       "y": 10,
@@ -14,6 +13,7 @@ exports[`Post component renders a Post by default 1`] = `
   lockAspectRatio={false}
   maxHeight={9007199254740991}
   maxWidth={9007199254740991}
+  onClick={[Function]}
   onDrag={[Function]}
   onDragStart={[Function]}
   onDragStop={[Function]}

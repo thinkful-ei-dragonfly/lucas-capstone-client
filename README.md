@@ -12,7 +12,6 @@ https://coleccion.lucasvocos.now.sh/
 
 * [React](https://facebook.github.io/create-react-app)
 * [Sass](https://www.npmjs.com/package/node-sass?activeTab=versions)
-* [jQuery UI - For `.draggable()` & `.resizable()`](https://jqueryui.com/draggable/)
 * [JWT Decode](https://jwt.io/)
 * [React File Base64](https://www.npmjs.com/package/react-file-base64)
 
