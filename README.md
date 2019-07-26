@@ -83,10 +83,6 @@ When a user clicks "EDIT" on a post, this component will get the value of the po
 The current values will be set as `defaultValue` in the form fields. When the user submits their changes, a `PATCH` request is sent to the `/api/posts` endpoint to update the post object.
 
 
-## A Note About Testing
-
-This application was built leveraging `jQuery UI` for the `draggable()` and `resizable()` methods on the post objects. Using jQuery in this React project has caused quite a bit of headache in terms of setting up tests. Moving forward, there are React modules that can be imported that give the same functionality
-
 ## Screenshots
 
 ### Main Page
