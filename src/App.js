@@ -3,6 +3,7 @@ import './App.scss';
 import { Route, Switch } from 'react-router-dom'
 import PostList from './components/PostList/PostList'
 import Header from './components/Header/Header'
+import AddBoard from './components/AddBoard/AddBoard'
 import AddPost from './components/AddPost/AddPost'
 import EditPost from './components/EditPost/EditPost'
 import OnBoard from './components/OnBoard/OnBoard'
@@ -112,7 +113,7 @@ export default class App extends React.Component{
                 path={'/register'}
                 component={RegistrationPage}
               />
-            <Route
+              <Route
                 path={'/about'}
                 component={OnBoard}
               />
@@ -136,6 +137,11 @@ export default class App extends React.Component{
                 component={EditPost}
                 posts={this.state.posts}
               />
+              <PrivateRoute
+                exact
+                path='/add-board'
+                component={AddBoard}
+                />
             </Switch>
           </main>
       </>

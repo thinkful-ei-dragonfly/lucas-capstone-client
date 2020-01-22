@@ -12,7 +12,7 @@ exports[`Header component renders a Header by default 1`] = `
     <Link
       to="/"
     >
-      Colección
+      Sensate Journal
     </Link>
   </h1>
   <div
@@ -21,19 +21,9 @@ exports[`Header component renders a Header by default 1`] = `
     role="navigation"
   >
     <Link
-      to="/about"
-    >
-      About
-    </Link>
-    <Link
       to="/login"
     >
       Log in
-    </Link>
-    <Link
-      to="/register"
-    >
-      Register
     </Link>
   </div>
 </header>
@@ -48,7 +38,7 @@ exports[`Header component renders a h1 with app name 1`] = `
   <Link
     to="/"
   >
-    Colección
+    Sensate Journal
   </Link>
 </h1>
 `;

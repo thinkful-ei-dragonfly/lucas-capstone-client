@@ -20,7 +20,7 @@ export default class LoginPage extends React.Component {
     return (
       <section
           className='LoginPage'>
-          <h2>Log in to Colleción</h2>
+          <h2>Log in to Sensate Journal</h2>
           <LoginForm
             onLoginSuccess={this.handleLoginSuccess}
           />

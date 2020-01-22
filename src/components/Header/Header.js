@@ -15,19 +15,17 @@ export default class Header extends React.Component {
   renderLogoutLink() {
     return (
       <div className='logged-in' role='navigation' aria-label="Authenticated User Actions">
-        <Link to='/about'>
-          About
-        </Link>
-        <Link
-          to='/add-post'>
-          Add New Post
-        </Link>
-        {' '}
-        <Link
-          onClick={this.handleLogoutClick}
-          to='/'>
-          Logout
-        </Link>
+        <nav className='logged-in'>
+          <Link to={'/add-board'}>New Board</Link>
+          <Link to={'/add-post'}>New Post</Link>
+          <Link
+            onClick={this.handleLogoutClick}
+            to='/'>
+            Logout
+          </Link>
+        </nav>
+        
+        
       </div>
     )
   }
@@ -35,16 +33,9 @@ export default class Header extends React.Component {
   renderLoginLink() {
     return (
       <div className='logged-out' role='navigation' aria-label="Header Navigation">
-        <Link to='/about'>
-          About
-        </Link>
         <Link
           to='/login'>
           Log in
-        </Link>
-        <Link
-          to='/register'>
-          Register
         </Link>
       </div>
     )
@@ -55,7 +46,7 @@ export default class Header extends React.Component {
     return (
       <header className="Header">
         <h1 className="header-h1" role='banner' aria-label="App Name">
-          <Link to='/'>Colección</Link>
+          <Link to='/'>Sensate Journal</Link>
         </h1>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
