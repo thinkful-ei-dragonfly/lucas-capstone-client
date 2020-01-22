@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom'
-import PostList from '../PostList/PostList'
-import Header from '../Header/Header'
-import AddPost from '../AddPost/AddPost'
-import EditPost from '../EditPost/EditPost'
-import OnBoard from '../OnBoard/OnBoard'
-import LoginPage from '../../routes/LoginPage/LoginPage'
-import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage'
-import PrivateRoute from '../Utils/PrivateRoute'
-import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
-import AuthApiService from '../../services/auth-api-service'
-import IdleService from '../../services/idle-service'
-import TokenService from '../../services/token-service'
+import PostList from './components/PostList/PostList'
+import Header from './components/Header/Header'
+import AddPost from './components/AddPost/AddPost'
+import EditPost from './components/EditPost/EditPost'
+import OnBoard from './components/OnBoard/OnBoard'
+import LoginPage from './routes/LoginPage/LoginPage'
+import RegistrationPage from './routes/RegistrationPage/RegistrationPage'
+import PrivateRoute from './components/Utils/PrivateRoute'
+import PublicOnlyRoute from './components/Utils/PublicOnlyRoute'
+import AuthApiService from './services/auth-api-service'
+import IdleService from './services/idle-service'
+import TokenService from './services/token-service'
 
 export default class App extends React.Component{
   state = {
