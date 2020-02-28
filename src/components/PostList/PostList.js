@@ -5,30 +5,43 @@ import config from '../../config'
 
 
 export default class PostList extends React.Component {
-
   state = {
+    currentBoard: null,
     posts: [],
     styles: []
   }
   componentDidMount() {
-    const requestPosts = fetch(`${config.API_ENDPOINT}/posts`)
-      .then(res => {
-        return res.json()
+    
+    
+    const board = parseFloat(this.props.match.params.board_id) || this.props.location.state.boardId  
+    if (board) {
+      this.setState({
+        currentBoard: board
       })
-    const requestStyles = fetch(`${config.API_ENDPOINT}/styles`)
-      .then(res => {
-        return res.json()
-      })
-    Promise.all([
-      requestPosts,
-      requestStyles
-    ])
-      .then(res => {
-        this.setState({
-          posts: res[0],
-          styles: res[1]
+      const requestPosts = fetch(`${config.API_ENDPOINT}/posts?board=${board}`)
+        .then(res => {
+          return res.json()
         })
-      })
+      const requestStyles = fetch(`${config.API_ENDPOINT}/styles?board=${board}`)
+        .then(res => {
+          return res.json()
+        })
+      Promise.all([
+        requestPosts,
+        requestStyles
+      ])
+        .then(res => {
+          this.setState({
+            posts: res[0],
+            styles: res[1]
+          })
+        })  
+    } else {
+      const { location, history } = this.props
+      const destination = (location.state || {}).from || '/'
+      history.push(destination)
+    }
+    
   }
   deletePost = (post) => {
 

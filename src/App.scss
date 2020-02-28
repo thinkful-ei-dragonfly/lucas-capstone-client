@@ -50,6 +50,9 @@ h2,
 h3 {
   font-weight: 400;
 }
+a {
+  color: inherit;
+}
 // Post
 .post {
   width: 500px;
@@ -142,7 +145,17 @@ h3 {
   position: absolute;
   // cursor: move;
 }
+// Boardlist 
+.board-list {
+  padding: 25px;
 
+  table.boards {
+    text-align: left;
+    th {
+      padding-right: 25px;
+    }
+  }
+}
 // AddPostForm
 .AddPostForm {
   display: flex;

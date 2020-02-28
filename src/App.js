@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import PostList from './components/PostList/PostList'
 import BoardList from './components/BoardList/BoardList'
 import Header from './components/Header/Header'
+import HomeWrapper from './components/HomeWrapper/HomeWrapper'
 import AddBoard from './components/AddBoard/AddBoard'
 import AddPost from './components/AddPost/AddPost'
 import EditPost from './components/EditPost/EditPost'
@@ -121,12 +122,7 @@ export default class App extends React.Component{
               <Route
                 exact
                 path="/"
-                render={routeProps => (
-                  <PostList
-                    posts={posts}
-                    styles={styles}
-                    />
-                )}
+                component={HomeWrapper}
               />
               <PrivateRoute
                 exact
@@ -135,11 +131,16 @@ export default class App extends React.Component{
                 />
               <PrivateRoute
                 exact
+                path={'/boards/:board_id'}
+                component={PostList}
+                />
+              <PrivateRoute
+                exact
                 path='/add-post'
                 component={AddPost}
                 />
               <PrivateRoute
-                path={'/post/:post_id'}
+                path={'boards/:board_id/post/:post_id'}
                 component={EditPost}
                 posts={this.state.posts}
               />

@@ -1,21 +1,42 @@
 import React from 'react'
+import Context from '../../contexts/Context'
 import PostApiService from '../../services/post-api-services'
 import FileBase64 from 'react-file-base64';
 
 
 export default class AddPost extends React.Component {
+  static contextType = Context;
+
   state = {
     post: {},
     uploadedFile: null,
     post_type: 'Text',
-    error: null
+    error: null,
+    currentBoard: this.context.currentBoard
+  }
+
+  componentDidMount() {
+    
+
+    const { location } = this.props
+    if (this.context.currentBoard) {
+      this.setState({
+        currentBoard: this.context.currentBoard
+      })
+    } else {
+      const { history } = this.props
+      
+      history.push('/')  
+    }
   }
 
   successfulSubmission = () => {
     const { location, history } = this.props
     const destination = (location.state || {}).from || '/'
+    
     history.push(destination)
   }
+  
   generateMessage(string) {
     if (this.state.error) {
       return (
@@ -30,6 +51,7 @@ export default class AddPost extends React.Component {
     ev.persist()
     const { post_type, title, text_title, text_content, caption, video} = ev.target
     let newPost = {
+      board: this.state.currentBoard.id,
       type: this.state.post_type,
       title: title.value
     }
@@ -50,7 +72,6 @@ export default class AddPost extends React.Component {
         newPost.text_title = text_title.value
         newPost.text_content = text_content.value
     }
-
     PostApiService.addPost(newPost)
       .then(res => {
         if (!res.ok || res.status(400)) {

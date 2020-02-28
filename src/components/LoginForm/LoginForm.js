@@ -8,11 +8,15 @@ export default class LoginForm extends React.Component {
 
   state = { error: null }
 
+  
+  
   handleSubmitJwtAuth = ev => {
     ev.preventDefault()
     this.setState({ error:null })
     const { user_name, password } = ev.target
-
+    const { location, history } = this.props
+    const destination = (location.state || {}).from || '/'
+    
     AuthApiService.postLogin({
       user_name: user_name.value,
       password: password.value
@@ -20,7 +24,7 @@ export default class LoginForm extends React.Component {
     .then(res => {
       user_name.value = ''
       password.value = ''
-      this.props.onLoginSuccess()
+      history.push('/boards')
     })
     .catch(res => {
       this.setState({ error: res.error })

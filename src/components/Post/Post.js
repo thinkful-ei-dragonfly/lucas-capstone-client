@@ -30,7 +30,6 @@ export default class Post extends React.Component {
     e.preventDefault()
     let answer = window.confirm('Are you sure you want to delete?')
     if (answer) {
-      debugger;
       PostApiService.deleteStyle(this.props.post.id)
       .then(res => {
           PostApiService.deletePost(this.props.post.id)

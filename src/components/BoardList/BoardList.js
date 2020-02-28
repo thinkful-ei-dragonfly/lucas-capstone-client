@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import config from '../../config'
 import { Link } from 'react-router-dom'
 import Header from '../Header/Header'
+import Context from '../../contexts/Context'
 import './BoardList.scss'
 
 const BoardList = props => {
   const [boards, setBoards] = useState([])
   const [error, setError] = useState(false)
-
+  const {setCurrentBoard} = useContext(Context)
+  
   useEffect(() => {
     fetch(`${config.API_ENDPOINT}/boards`)
       .then(res => {
@@ -27,18 +29,20 @@ const BoardList = props => {
     <>
     <Header context={'BoardListPage'} />
     <section className='board-list'>
-      <h2>Board List</h2>
-      {error && (<p className='red'>{error}</p>)}
+      <h2>Spatialized Board List</h2>
+        {error && (<p className='red'>{error}</p>)}
       {boards.length 
         ? (
         <table className='boards'>
           <tbody>
+            
             <tr>
               <th>ID</th>
               <th>Board Name</th>
               <th>Description</th>
               <th> </th>
             </tr>
+
             {boards.map(board => {
               return (
                 <tr key={board.id}>
@@ -48,10 +52,11 @@ const BoardList = props => {
                   <td><Link to={{
                     pathname: `/boards/${board.id}`,
                     state: {
-                      boardName: board.title,
-                      boardId: board.id
+                      title: board.title,
+                      id: board.id
                     }
-                    }} >View/Edit</Link></td>
+                    }}
+                    onClick={() => setCurrentBoard(board)} >View/Edit</Link></td>
                 </tr>
               )
             })}
