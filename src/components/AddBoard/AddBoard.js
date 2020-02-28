@@ -16,7 +16,7 @@ const AddBoard = () => {
   const history = useHistory()
 
   const successfulSubmission = () => {
-    const destination = (location.state || {}).from || '/'
+    const destination = (location.state || {}).from || '/boards'
     history.push(destination)
   }
 
