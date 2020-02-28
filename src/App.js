@@ -2,6 +2,7 @@ import React from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom'
 import PostList from './components/PostList/PostList'
+import BoardList from './components/BoardList/BoardList'
 import Header from './components/Header/Header'
 import AddBoard from './components/AddBoard/AddBoard'
 import AddPost from './components/AddPost/AddPost'
@@ -102,7 +103,7 @@ export default class App extends React.Component{
           onLogin={this.login}
         />
           <main className="main-content" role="main">
-            {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
+            {this.state.hasError && <p className='red'>{this.state.error}</p>}
             <Switch>
               <PublicOnlyRoute
                 path={'/login'}
@@ -127,6 +128,11 @@ export default class App extends React.Component{
                     />
                 )}
               />
+              <PrivateRoute
+                exact
+                path='/boards'
+                component={BoardList}
+                />
               <PrivateRoute
                 exact
                 path='/add-post'

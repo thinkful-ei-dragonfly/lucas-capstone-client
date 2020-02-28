@@ -1,10 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import { Link, useParams, useLocation, useRouteMatch } from 'react-router-dom'
 import TokenService from '../../services/token-service'
 import IdleService from '../../services/idle-service'
 
-export default class Header extends React.Component {
-  handleLogoutClick = () => {
+
+const Header = props => {
+  const [boardPage, setBoardPage] = useState(false)
+  const [boardListPage, setBoardListPage ] = useState(false)
+  
+  const location = useLocation()
+  
+  // useEffect(() => {
+
+  // })
+  
+  const handleLogoutClick = () => {
     TokenService.clearAuthToken()
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry()
@@ -12,46 +22,36 @@ export default class Header extends React.Component {
     this.forceUpdate()
   }
 
-  renderLogoutLink() {
-    return (
-      <div className='logged-in' role='navigation' aria-label="Authenticated User Actions">
-        <nav className='logged-in'>
-          <Link to={'/add-board'}>New Board</Link>
-          <Link to={'/add-post'}>New Post</Link>
+  return (
+    <header className="Header">
+      <h1 className="header-h1" role='banner' aria-label="App Name">
+        <Link to='/'>Spatialized Sensate Journal</Link>
+        {location.pathname.split('/')[1] === 'boards' && (
+          <>
+            {location.pathname.split('/')[2] ? (<span className='board-name'> | Board ID: {location.pathname.split('/')[2]}</span>) : ''}
+          </>
+        )}
+      </h1>
+        {location.pathname.split('/')[1] === 'boards' && (
+          <nav className='logged-in'>
+            {location.pathname.split('/')[2] 
+              ? (
+                <>
+                  <Link to={'/boards'}>Back to Boards</Link>
+                  <Link to={'/add-post'}>New Post</Link>
+                </>
+              )
+              : (
+                <Link to = { '/add-board' }>New Board</Link>
+              )}
           <Link
-            onClick={this.handleLogoutClick}
+            onClick={handleLogoutClick}
             to='/'>
             Logout
           </Link>
-        </nav>
-        
-        
-      </div>
-    )
-  }
-
-  renderLoginLink() {
-    return (
-      <div className='logged-out' role='navigation' aria-label="Header Navigation">
-        <Link
-          to='/login'>
-          Log in
-        </Link>
-      </div>
-    )
-  }
-
-
-  render() {
-    return (
-      <header className="Header">
-        <h1 className="header-h1" role='banner' aria-label="App Name">
-          <Link to='/'>Sensate Journal</Link>
-        </h1>
-        {TokenService.hasAuthToken()
-          ? this.renderLogoutLink()
-          : this.renderLoginLink()}
-      </header>
-    )
-  }
+          </nav>
+        )}
+    </header>
+  )
 }
+export default Header
