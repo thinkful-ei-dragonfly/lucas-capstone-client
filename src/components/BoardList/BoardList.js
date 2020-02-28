@@ -29,7 +29,8 @@ const BoardList = props => {
     <section className='board-list'>
       <h2>Board List</h2>
       {error && (<p className='red'>{error}</p>)}
-      {boards.length && (
+      {boards.length 
+        ? (
         <table className='boards'>
           <tbody>
             <tr>
@@ -44,12 +45,21 @@ const BoardList = props => {
                   <td className='board-id'>{board.id}</td>
                   <td className='board-name'>{board.title}</td>
                   <td className='board-description'>{board.description}</td>
-                  <td><Link to={`/boards/${board.id}`}>View/Edit</Link></td>
+                  <td><Link to={{
+                    pathname: `/boards/${board.id}`,
+                    state: {
+                      boardName: board.title,
+                      boardId: board.id
+                    }
+                    }} >View/Edit</Link></td>
                 </tr>
               )
             })}
           </tbody>
         </table>
+      )
+      : (
+            <h2>You have no boards created. Click <Link to={'/add-board'}>here</Link> or "New Board" in the header</h2>
       )}
     </section>
     </>

@@ -5,14 +5,20 @@ import IdleService from '../../services/idle-service'
 
 
 const Header = props => {
-  const [boardPage, setBoardPage] = useState(false)
+  const [currentBoard, setCurrentBoard] = useState(false)
   const [boardListPage, setBoardListPage ] = useState(false)
   
   const location = useLocation()
   
-  // useEffect(() => {
-
-  // })
+  useEffect(() => {
+    if (location.pathname.split('/')[1] === 'boards' && location.pathname.split('/')[2]) {
+      setCurrentBoard({
+        title: location.state.boardName,
+        id: location.state.boardId
+      })
+    }
+  }, [])
+  
   
   const handleLogoutClick = () => {
     TokenService.clearAuthToken()
@@ -28,7 +34,7 @@ const Header = props => {
         <Link to='/'>Spatialized Sensate Journal</Link>
         {location.pathname.split('/')[1] === 'boards' && (
           <>
-            {location.pathname.split('/')[2] ? (<span className='board-name'> | Board ID: {location.pathname.split('/')[2]}</span>) : ''}
+            {location.pathname.split('/')[2] ? (<span className='board-name'> | {location.state ? ('Name: ' + location.state.boardName) : ''} / ID: {location.pathname.split('/')[2]}</span>) : ''}
           </>
         )}
       </h1>
@@ -38,7 +44,7 @@ const Header = props => {
               ? (
                 <>
                   <Link to={'/boards'}>Back to Boards</Link>
-                  <Link to={'/add-post'}>New Post</Link>
+                  <Link to={{ pathname: '/add-post', state: currentBoard }}>New Object</Link>
                 </>
               )
               : (
