@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
+import config from '../../config'
 import Context from '../../contexts/Context'
 import TokenService from '../../services/token-service'
 import IdleService from '../../services/idle-service'
 
 
 const Header = props => {
-  // const [currentBoard, setCurrentBoard] = useState(false)
   const [loggedIn, setLoggedIn] = useState(TokenService.hasAuthToken())
   const history = useHistory()
   const location = useLocation()
@@ -20,6 +20,26 @@ const Header = props => {
     setLoggedIn(false)
     history.push('/login')
   }
+
+  useEffect(() => {
+    if (!currentBoard) {
+      if (location.pathname.split('/')[1] === 'boards' && location.pathname.split('/')[2]) {
+        fetch(`${config.API_ENDPOINT}/boards/${parseFloat(location.pathname.split('/')[2])}`)
+          .then(res => {
+            if (res.ok) {
+              return res.json()
+            }
+          })
+          .then(response => {
+            setCurrentBoard(response)
+          })
+          .catch(error => {
+            
+            console.error(error)
+          })
+      }
+    }
+  }, [])
   
   return (
     <header className="Header">
