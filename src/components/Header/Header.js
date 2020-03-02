@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useEffect, useContext} from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import config from '../../config'
 import Context from '../../contexts/Context'

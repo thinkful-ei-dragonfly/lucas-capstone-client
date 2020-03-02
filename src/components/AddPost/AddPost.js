@@ -16,9 +16,6 @@ export default class AddPost extends React.Component {
   }
 
   componentDidMount() {
-    
-
-    const { location } = this.props
     if (this.context.currentBoard) {
       this.setState({
         currentBoard: this.context.currentBoard
@@ -31,10 +28,9 @@ export default class AddPost extends React.Component {
   }
 
   successfulSubmission = () => {
-    const { location, history } = this.props
-    const destination = (location.state || {}).from || '/'
+    const { history } = this.props
     
-    history.push(destination)
+    history.push(`/boards/${this.state.currentBoard.id}`)
   }
   
   generateMessage(string) {
