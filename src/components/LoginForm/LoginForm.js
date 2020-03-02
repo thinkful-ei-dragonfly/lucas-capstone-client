@@ -5,7 +5,6 @@ import AuthApiService from '../../services/auth-api-service'
 
 const LoginForm = props => {
   const [ error, setError ] = useState(null)
-  // const [ authorized, setAuthorized ] = useState(false)
   const { setLoggedIn } = useContext(Context)
   
 
@@ -14,7 +13,7 @@ const LoginForm = props => {
     setError(null)
 
     const { user_name, password } = e.target
-    const { location, history } = props
+    const { history } = props
 
     AuthApiService.postLogin({
       user_name: user_name.value,
@@ -24,11 +23,10 @@ const LoginForm = props => {
         user_name.value = ''
         password.value = ''
         setLoggedIn(true)
-        // setAuthorized(true)
         history.push('/boards')
       })
       .catch(res => {
-        this.setState({ error: res.error })
+        setError(res.error)
       })
   }
   return (

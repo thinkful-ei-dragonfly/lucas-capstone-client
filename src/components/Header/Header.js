@@ -7,21 +7,22 @@ import IdleService from '../../services/idle-service'
 
 
 const Header = props => {
-  const { loggedIn, setLoggedIn } = useContext(Context)
   const history = useHistory()
   const location = useLocation()
-  const {currentBoard, setCurrentBoard} = useContext(Context)
+  const { currentBoard, setCurrentBoard, setLoggedIn} = useContext(Context)
   
   const handleLogoutClick = () => {
     TokenService.clearAuthToken()
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
+    setCurrentBoard(null)
     setLoggedIn(false)
     history.push('/login')
   }
 
   useEffect(() => {
+
     if (!currentBoard) {
       if (location.pathname.split('/')[1] === 'boards' && location.pathname.split('/')[2]) {
         fetch(`${config.API_ENDPOINT}/boards/${parseFloat(location.pathname.split('/')[2])}`)

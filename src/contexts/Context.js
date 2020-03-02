@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TokenService from '../services/token-service'
 // create context
 const Context = React.createContext();
 export default Context
@@ -12,7 +12,7 @@ export class ContextProvider extends React.Component {
         super(props)
         const state = {
             currentBoard: null,
-            loggedIn: false
+            loggedIn: TokenService.hasAuthToken()
         }
         this.state = state
     }
