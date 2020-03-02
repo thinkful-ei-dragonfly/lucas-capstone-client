@@ -11,7 +11,8 @@ export class ContextProvider extends React.Component {
     constructor(props) {
         super(props)
         const state = {
-            currentBoard: null
+            currentBoard: null,
+            loggedIn: false
         }
         this.state = state
     }
@@ -20,13 +21,19 @@ export class ContextProvider extends React.Component {
         this.setState({ currentBoard })
     }
 
+    setLoggedIn = value => {
+        this.setState({ loggedIn: value  })
+    }
+
     // the component render method
     render() {
         const value = {
             // values
             currentBoard: this.state.currentBoard,
+            loggedIn: this.state.loggedIn,
             // methods
-            setCurrentBoard: this.setCurrentBoard
+            setCurrentBoard: this.setCurrentBoard,
+            setLoggedIn: this.setLoggedIn
         };
 
         return (

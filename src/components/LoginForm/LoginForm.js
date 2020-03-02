@@ -1,76 +1,75 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import Context from '../../contexts/Context'
 import AuthApiService from '../../services/auth-api-service'
 
-export default class LoginForm extends React.Component {
-  static defaultProps = {
-    onLoginSuccess: () => {}
-  }
 
-  state = { error: null }
+const LoginForm = props => {
+  const [ error, setError ] = useState(null)
+  // const [ authorized, setAuthorized ] = useState(false)
+  const { setLoggedIn } = useContext(Context)
+  
 
-  
-  
-  handleSubmitJwtAuth = ev => {
-    ev.preventDefault()
-    this.setState({ error:null })
-    const { user_name, password } = ev.target
-    const { location, history } = this.props
-    const destination = (location.state || {}).from || '/'
-    
+  const handleSubmitJwtAuth = e => {
+    e.preventDefault()
+    setError(null)
+
+    const { user_name, password } = e.target
+    const { location, history } = props
+
     AuthApiService.postLogin({
       user_name: user_name.value,
       password: password.value
     })
-    .then(res => {
-      user_name.value = ''
-      password.value = ''
-      history.push('/boards')
-    })
-    .catch(res => {
-      this.setState({ error: res.error })
-    })
+      .then(res => {
+        user_name.value = ''
+        password.value = ''
+        setLoggedIn(true)
+        // setAuthorized(true)
+        history.push('/boards')
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
   }
-
-  render() {
-    const { error } = this.state
-    return (
-      <form
-        className='LoginForm'
-        onSubmit={this.handleSubmitJwtAuth}
-        aria-label="Login Form"
+  return (
+    <form
+      className='LoginForm'
+      onSubmit={handleSubmitJwtAuth}
+      aria-label="Login Form"
+    >
+      <div role='alert' >
+        {error && <p className='red' role='alertdialog' aria-label="Error Message">{error}</p>}
+      </div>
+      <div className='user_name'>
+        <label htmlFor='LoginForm_user_name'>
+          User name
+          </label>
+        <input
+          required
+          name='user_name'
+          aria-label="user_name field"
+          id='LoginForm_user_name'>
+        </input>
+      </div>
+      <div className='password'>
+        <label htmlFor='LoginForm_password'>
+          Password
+          </label>
+        <input
+          required
+          name='password'
+          aria-label="password field"
+          type='password'
+          id='LoginForm_password'>
+        </input>
+      </div>
+      <button
+        type='submit'
       >
-        <div role='alert' >
-          {error && <p className='red' role='alertdialog' aria-label="Error Message">{error}</p>}
-        </div>
-        <div className='user_name'>
-          <label htmlFor='LoginForm_user_name'>
-            User name
-          </label>
-          <input
-            required
-            name='user_name'
-            aria-label="user_name field"
-            id='LoginForm_user_name'>
-          </input>
-        </div>
-        <div className='password'>
-          <label htmlFor='LoginForm_password'>
-            Password
-          </label>
-          <input
-            required
-            name='password'
-            aria-label="password field"
-            type='password'
-            id='LoginForm_password'>
-          </input>
-        </div>
-        <button
-          type='submit'
-          >
-          Login
+        Login
         </button>
-      </form>
-    )
-  }
+    </form>
+  )
 }
+
+export default LoginForm

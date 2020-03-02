@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
-import TokenService from '../../services/token-service'
+import React, {useState, useContext} from 'react'
+import Context from '../../contexts/Context'
 import LoginPage from '../../routes/LoginPage/LoginPage'
 import BoardList from '../BoardList/BoardList'
 
 const HomeWrapper = props => {
-    const [LoggedIn, setLoggedIn] = useState(TokenService.hasAuthToken());
+    const {loggedIn} = useContext(Context)
     
     return (
         <>
-            {LoggedIn ? <BoardList /> : <LoginPage props={props}/>}
+            {loggedIn ? <BoardList /> : <LoginPage props={props}/>}
         </>
     )
 }

@@ -7,7 +7,7 @@ import IdleService from '../../services/idle-service'
 
 
 const Header = props => {
-  const [loggedIn, setLoggedIn] = useState(TokenService.hasAuthToken())
+  const { loggedIn, setLoggedIn } = useContext(Context)
   const history = useHistory()
   const location = useLocation()
   const {currentBoard, setCurrentBoard} = useContext(Context)
