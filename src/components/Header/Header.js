@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from 'react'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import config from '../../config'
 import Context from '../../contexts/Context'
 import TokenService from '../../services/token-service'
@@ -7,7 +7,7 @@ import IdleService from '../../services/idle-service'
 
 
 const Header = props => {
-  const history = useHistory()
+  
   const location = useLocation()
   const { loggedIn, currentBoard, setCurrentBoard, setLoggedIn} = useContext(Context)
   

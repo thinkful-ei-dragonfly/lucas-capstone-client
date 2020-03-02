@@ -1,6 +1,6 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Context from '../../contexts/Context'
-import { useLocation, useMatch, useParams} from 'react-router-dom'
+import { useLocation, useParams} from 'react-router-dom'
 import Post from '../Post/Post'
 import config from '../../config'
 
@@ -95,12 +95,15 @@ const PostList = ({history, match, location, props}) => {
   const [error, setError] = useState(null)
   
   const params = useParams()
-  const locationHook = useLocation()
-  
-  
 
-  const deletePost = e => {
-    debugger;
+  const deletePost = post => {
+
+    if (post) {
+      setPosts(posts.filter(item => item.id !== post))
+    } else {
+      return
+    }
+
   }
   useEffect(() => {
     if (wordPressId) {

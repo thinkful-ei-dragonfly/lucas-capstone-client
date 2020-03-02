@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom'
 import PostList from './components/PostList/PostList'
