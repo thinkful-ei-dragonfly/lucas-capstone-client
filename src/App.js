@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './App.scss';
 import { Route, Switch } from 'react-router-dom'
 import PostList from './components/PostList/PostList'
@@ -22,7 +22,8 @@ export default class App extends React.Component{
     posts: [],
     styles: [],
     hasError: false,
-    authenticated: false
+    authenticated: false,
+    wordPressId: false
   }
 
   static getDerivedStateFromError(error) {
@@ -35,6 +36,12 @@ export default class App extends React.Component{
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
     */
+    const wordPressId = document.getElementById('root').dataset.id
+    if (wordPressId) {
+      this.setState({ wordPressId })
+
+    }
+    
     IdleService.setIdleCallback(this.logoutFromIdle)
 
     /* if a user is logged in */
@@ -97,61 +104,78 @@ export default class App extends React.Component{
   }
 
   render() {
-    const { posts, styles } = this.state
     return (
       <>
-        <Header
-          onLogin={this.login}
-        />
-          <main className="main-content" role="main">
-            {this.state.hasError && <p className='red'>{this.state.error}</p>}
-            <Switch>
-              <PublicOnlyRoute
-                path={'/login'}
-                component={LoginPage}
-                onLogin={this.login}
-              />
-              <PublicOnlyRoute
-                path={'/register'}
-                component={RegistrationPage}
-              />
-              <Route
-                path={'/about'}
-                component={OnBoard}
-              />
-              <Route
-                exact
-                path="/"
-                component={HomeWrapper}
-              />
-              <PrivateRoute
-                exact
-                path='/boards'
-                component={BoardList}
+      {this.state.wordPressId
+        ? (
+          // An ID was passed in through the Wordpress template
+          <>
+            <Header />
+            <Route
+              exact
+              path="/"
+              render={defaultProps => <PostList props={{...defaultProps, boardId: this.state.wordPressId}} />}
+            />
+          </>
+        )
+        : (
+          // Navigated directly
+            <>
+              <Header
+                onLogin = {this.login
+                }
                 />
-              <PrivateRoute
-                exact
-                path={'/boards/:board_id'}
-                component={PostList}
-                />
-              <PrivateRoute
-                exact
-                path='/add-post'
-                component={AddPost}
-                />
-              <PrivateRoute
-                path={'boards/:board_id/post/:post_id'}
-                component={EditPost}
-                posts={this.state.posts}
-              />
-              <PrivateRoute
-                exact
-                path='/add-board'
-                component={AddBoard}
-                />
-            </Switch>
-          </main>
-      </>
+              <main className="main-content" role="main">
+                {this.state.hasError && <p className='red'>{this.state.error}</p>}
+                <Switch>
+                  <PublicOnlyRoute
+                    path={'/login'}
+                    component={LoginPage}
+                    onLogin={this.login}
+                  />
+                  <PublicOnlyRoute
+                    path={'/register'}
+                    component={RegistrationPage}
+                  />
+                  <Route
+                    path={'/about'}
+                    component={OnBoard}
+                  />
+                  <Route
+                    exact
+                    path="/"
+                    component={HomeWrapper}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/boards'
+                    component={BoardList}
+                  />
+                  <Route
+                    exact
+                    path={'/boards/:board_id'}
+                    component={PostList}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/add-post'
+                    component={AddPost}
+                  />
+                  <PrivateRoute
+                    path={'boards/:board_id/post/:post_id'}
+                    component={EditPost}
+                    posts={this.state.posts}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/add-board'
+                    component={AddBoard}
+                  />
+                </Switch>
+              </main>
+            </>
+          )}
+        </>
     );
   }
 }

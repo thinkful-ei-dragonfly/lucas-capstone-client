@@ -9,7 +9,7 @@ import IdleService from '../../services/idle-service'
 const Header = props => {
   const history = useHistory()
   const location = useLocation()
-  const { currentBoard, setCurrentBoard, setLoggedIn} = useContext(Context)
+  const { loggedIn, currentBoard, setCurrentBoard, setLoggedIn} = useContext(Context)
   
   const handleLogoutClick = () => {
     TokenService.clearAuthToken()
@@ -18,7 +18,7 @@ const Header = props => {
     IdleService.unRegisterIdleResets()
     setCurrentBoard(null)
     setLoggedIn(false)
-    history.push('/login')
+    // history.push('/login')
   }
 
   useEffect(() => {
@@ -35,7 +35,6 @@ const Header = props => {
             setCurrentBoard(response)
           })
           .catch(error => {
-            
             console.error(error)
           })
       }
@@ -46,7 +45,7 @@ const Header = props => {
     <header className="Header">
       <h1 className="header-h1" role='banner' aria-label="App Name">
         <Link to='/'>Spatialized Sensate Journal</Link>
-        {currentBoard && (
+        {(currentBoard && loggedIn) && (
           <>
             {location.pathname.split('/')[1] !== 'add-post' && currentBoard && (<span className='board-name'> | Name: {currentBoard.title} / ID: {currentBoard.id} </span>)}
             {location.pathname.split('/')[1] === 'add-post' && currentBoard
