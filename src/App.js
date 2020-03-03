@@ -37,9 +37,9 @@ export default class App extends React.Component{
       we'll set this to logout a user when they're idle
     */
     const wordPressId = document.getElementById('root').dataset.id
+    
     if (wordPressId) {
       this.setState({ wordPressId })
-
     }
     
     IdleService.setIdleCallback(this.logoutFromIdle)
@@ -109,14 +109,11 @@ export default class App extends React.Component{
       {this.state.wordPressId
         ? (
           // An ID was passed in through the Wordpress template
-          <>
-            <Header />
             <Route
               exact
               path="/"
               render={defaultProps => <PostList props={{...defaultProps, boardId: this.state.wordPressId}} />}
             />
-          </>
         )
         : (
           // Navigated directly
