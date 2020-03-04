@@ -38,7 +38,7 @@ export default class App extends React.Component{
     */
     const wordPressId = document.getElementById('root').dataset.id
     
-    if (wordPressId) {
+    if (!!wordPressId) {
       this.setState({ wordPressId })
     }
     
