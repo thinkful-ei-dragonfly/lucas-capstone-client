@@ -113,6 +113,14 @@ a {
       -webkit-user-select: none;
       -ms-user-select: none;
     }
+    .info {
+      max-width: 1em;
+      position: absolute;
+      bottom: 1em;
+      right: 1em;
+      z-index: 3;
+      cursor: pointer;
+    }
   }
   &.Video-post {
     .video-post-content{
@@ -129,13 +137,11 @@ a {
   }
   .caption-popup {
     background: #fff;
-    position: absolute;
-    width: 175px;
-    padding: 10px;
-    right: -165px;
-    // display: none;
     color: #111;
-    border: 1px solid;
+    position: absolute;
+    padding: 10px;
+    right: 10px;
+    left: 10px;
   }
 }
 

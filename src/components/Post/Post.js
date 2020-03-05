@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Rnd } from 'react-rnd'
-
+import InfoSVG from '../../icons/info.svg'
+import InfoPNG from '../../icons/info.png'
 import TokenService from '../../services/token-service'
 import PostApiService from '../../services/post-api-services'
 
@@ -21,9 +22,11 @@ export default class Post extends React.Component {
   }
 
   showCaption = (e) => {
-    this.setState({
-      expanded: !this.state.expanded
-    })
+    if (e.target.className.includes('info')) {
+      this.setState({
+        expanded: !this.state.expanded
+      })
+    } else return
   }
 
   deletePost = (e) => {
@@ -124,12 +127,12 @@ export default class Post extends React.Component {
         role='listitem'
         lockAspectRatio={this.state.type === 'Image' || this.state.type === 'Video'}
         bounds={'window'}
+        onClick={this.showCaption}
         default={{
           x: parseInt(this.state.style.left_style),
           y: parseInt(this.state.style.top_style),
           width: parseInt(this.state.style.width_style)
         }}
-        onClick={this.showCaption}
         onDragStop={
           (e, node) => {
             if (!TokenService.hasAuthToken()) {
@@ -178,10 +181,9 @@ export default class Post extends React.Component {
       {this.state.deleteConfirmation
         ? deleteConfirmation
         : ''}
-      {this.state.expanded
-        ? captionPopup
-        : ''}
       {renderedPost}
+      {this.state.expanded && captionPopup}
+      <img src={InfoPNG} className='info' />
     </Rnd>
     )
 
