@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Rnd } from 'react-rnd';
-import InfoPNG from '../../icons/info.png';
+// import InfoPNG from "../../../images/info.png";
 import TokenService from '../../services/token-service';
 import PostApiService from '../../services/post-api-services';
 
@@ -19,6 +19,8 @@ export default class Post extends React.Component {
 		expanded: false,
 		deleteConfirmation: false,
 	};
+
+	componentDidMount = () => {};
 
 	showCaption = (e) => {
 		if (e.target.className.includes('info')) {
@@ -47,7 +49,6 @@ export default class Post extends React.Component {
 		let editlink = '';
 		let captionPopup = '';
 		let deleteConfirmation = '';
-
 		if (this.props.post.caption) {
 			captionPopup = (
 				<div className="caption-popup">
@@ -118,6 +119,16 @@ export default class Post extends React.Component {
 					</div>
 				);
 				break;
+			case 'Iframe':
+				renderedPost = (
+					<iframe
+						className="embed-iframe"
+						src={this.props.post.iframe}
+						frameBorder="0"
+						height="100%"
+						width="100%"
+					/>
+				);
 			default:
 		}
 
@@ -132,11 +143,9 @@ export default class Post extends React.Component {
 				bounds={'window'}
 				onClick={this.showCaption}
 				default={{
-					x: this.state.style ? parseInt(this.state.style.left_style) : 10,
-					y: this.state.style ? parseInt(this.state.style.top_style) : 10,
-					width: this.state.style
-						? parseInt(this.state.style.width_style)
-						: 350,
+					x: parseInt(this?.state?.style?.left_style),
+					y: parseInt(this?.state?.style?.top_style),
+					width: parseInt(this?.state?.style?.width_style),
 				}}
 				onDragStop={(e, node) => {
 					if (!TokenService.hasAuthToken()) {
@@ -182,7 +191,12 @@ export default class Post extends React.Component {
 				{this.state.deleteConfirmation ? deleteConfirmation : ''}
 				{renderedPost}
 				{this.state.expanded && captionPopup}
-				<img src={InfoPNG} className="info" />
+				<img
+					src={
+						'/wp-content/themes/sensate/build/bb8760e3351cffcd0c4bbce419d5c9f7.png'
+					}
+					className="info"
+				/>
 			</Rnd>
 		);
 	}
