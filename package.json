@@ -9,7 +9,7 @@
     "jquery-ui-touch-punch": "^0.2.3",
     "jquery-ui-touch-punch-touch_fix": "^0.2.5",
     "jwt-decode": "^2.2.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-file-base64": "^1.0.3",
